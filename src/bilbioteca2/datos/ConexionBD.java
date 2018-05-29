@@ -3,6 +3,7 @@ package bilbioteca2.datos;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import libreria.Biblioteca;
 
 public class ConexionBD {
     
@@ -30,22 +31,26 @@ public class ConexionBD {
     
     public static String[] login(String usuario, String contraseña){
         conectarBD();
-        String [] resultado = null;
+        String [] resultado = new String[2];
         ResultSet result = null;
         try {
             PreparedStatement st = connect.prepareStatement("SELECT nombre,admin FROM usuarios where login='"+usuario+"' and password='"+contraseña+"'");
             result = st.executeQuery();
             if (result.next()) {
                 boolean admin = result.getBoolean("admin");
+                String nombre = result.getString("nombre");
                 if (admin){
-                    resultado[0]= result.getString("nombre");
-                    resultado[1]= result.getString("true");
+                    resultado[0]= nombre;
+                    resultado[1]= "true";
                 }else{
-                    resultado[0]= result.getString("nombre");
-                    resultado[1]= result.getString("false");
+                    resultado[0]= nombre;
+                    resultado[1]= "false";
                 }
             }
-        } catch (SQLException ex) {
+        } catch(NullPointerException e) {
+             Biblioteca.mostrarMensaje("El usuario o la contraseña introducidos no son correctos.");
+        }
+        catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
         cerrarBD();
