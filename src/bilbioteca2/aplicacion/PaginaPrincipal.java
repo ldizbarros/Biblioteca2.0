@@ -57,8 +57,8 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         jPF_password.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         jB_login.setBackground(java.awt.SystemColor.controlHighlight);
-        jB_login.setFont(new java.awt.Font("Berlin Sans FB", 0, 24)); // NOI18N
-        jB_login.setForeground(java.awt.SystemColor.activeCaption);
+        jB_login.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
+        jB_login.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
         jB_login.setText("LOGIN");
         jB_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

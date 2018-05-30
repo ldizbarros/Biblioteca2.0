@@ -25,6 +25,18 @@ public class VentanaUsuario extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel_Usuario = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable_MostrarLibros = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel_buscador = new javax.swing.JLabel();
+        jTF_Busqueda = new javax.swing.JTextField();
+        jL_mostarFiltros = new javax.swing.JLabel();
+        jRB_Autor = new javax.swing.JRadioButton();
+        jRB_Titulo = new javax.swing.JRadioButton();
+        jRB_Editorial = new javax.swing.JRadioButton();
+        jRB_ISBN = new javax.swing.JRadioButton();
+        jRB_Publicacion = new javax.swing.JRadioButton();
+        jRB_Seccion = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca Usuario");
@@ -35,21 +47,125 @@ public class VentanaUsuario extends javax.swing.JFrame {
         jLabel_Usuario.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Usuario.setText("Usuario");
 
+        jTable_MostrarLibros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "TITULO", "AUTOR", "EDITORIAL", "ISBN", "AÑO PUBLICACION", "EJEMPLARES DISPONIBLES"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable_MostrarLibros);
+
+        jLabel_buscador.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel_buscador.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_buscador.setText("BUSCADOR:");
+
+        jTF_Busqueda.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        jL_mostarFiltros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilbioteca2/aplicacion/mostrar.png"))); // NOI18N
+
+        jRB_Autor.setBackground(javax.swing.UIManager.getDefaults().getColor("RadioButton.shadow"));
+        jRB_Autor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jRB_Autor.setForeground(new java.awt.Color(255, 255, 255));
+        jRB_Autor.setSelected(true);
+        jRB_Autor.setText("Autor");
+
+        jRB_Titulo.setBackground(javax.swing.UIManager.getDefaults().getColor("RadioButton.shadow"));
+        jRB_Titulo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jRB_Titulo.setForeground(new java.awt.Color(255, 255, 255));
+        jRB_Titulo.setSelected(true);
+        jRB_Titulo.setText("Titulo");
+
+        jRB_Editorial.setBackground(javax.swing.UIManager.getDefaults().getColor("RadioButton.shadow"));
+        jRB_Editorial.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jRB_Editorial.setForeground(new java.awt.Color(255, 255, 255));
+        jRB_Editorial.setSelected(true);
+        jRB_Editorial.setText("Editorial");
+
+        jRB_ISBN.setBackground(javax.swing.UIManager.getDefaults().getColor("RadioButton.shadow"));
+        jRB_ISBN.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jRB_ISBN.setForeground(new java.awt.Color(255, 255, 255));
+        jRB_ISBN.setSelected(true);
+        jRB_ISBN.setText("ISBN");
+
+        jRB_Publicacion.setBackground(javax.swing.UIManager.getDefaults().getColor("RadioButton.shadow"));
+        jRB_Publicacion.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jRB_Publicacion.setForeground(new java.awt.Color(255, 255, 255));
+        jRB_Publicacion.setSelected(true);
+        jRB_Publicacion.setText("Año Publicacion");
+
+        jRB_Seccion.setBackground(javax.swing.UIManager.getDefaults().getColor("RadioButton.shadow"));
+        jRB_Seccion.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jRB_Seccion.setForeground(new java.awt.Color(255, 255, 255));
+        jRB_Seccion.setSelected(true);
+        jRB_Seccion.setText("Seccion");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(795, Short.MAX_VALUE)
-                .addComponent(jLabel_Usuario)
-                .addGap(27, 27, 27))
+                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addComponent(jRB_Autor)
+                                .addGap(34, 34, 34)
+                                .addComponent(jRB_Titulo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jRB_Editorial)
+                                .addGap(27, 27, 27)
+                                .addComponent(jRB_ISBN)
+                                .addGap(31, 31, 31)
+                                .addComponent(jRB_Publicacion)
+                                .addGap(28, 28, 28)
+                                .addComponent(jRB_Seccion))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(760, 760, 760)
+                                .addComponent(jLabel_Usuario))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(134, 134, 134)
+                                .addComponent(jLabel_buscador)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTF_Busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jL_mostarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 39, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel_Usuario)
-                .addContainerGap(420, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jL_mostarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTF_Busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_buscador))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRB_Autor)
+                    .addComponent(jRB_Titulo)
+                    .addComponent(jRB_Editorial)
+                    .addComponent(jRB_ISBN)
+                    .addComponent(jRB_Publicacion)
+                    .addComponent(jRB_Seccion))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -102,7 +218,19 @@ public class VentanaUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jL_mostarFiltros;
     public static javax.swing.JLabel jLabel_Usuario;
+    private javax.swing.JLabel jLabel_buscador;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRB_Autor;
+    private javax.swing.JRadioButton jRB_Editorial;
+    private javax.swing.JRadioButton jRB_ISBN;
+    private javax.swing.JRadioButton jRB_Publicacion;
+    private javax.swing.JRadioButton jRB_Seccion;
+    private javax.swing.JRadioButton jRB_Titulo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTF_Busqueda;
+    private javax.swing.JTable jTable_MostrarLibros;
     // End of variables declaration//GEN-END:variables
 }

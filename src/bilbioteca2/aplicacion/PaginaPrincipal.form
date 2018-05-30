@@ -192,10 +192,10 @@
                   <Color blue="e3" green="e3" id="Control Highlight" palette="2" red="e3" type="palette"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Berlin Sans FB" size="24" style="0"/>
+                  <Font name="Berlin Sans FB" size="24" style="1"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="d1" green="b4" id="Active Caption" palette="2" red="99" type="palette"/>
+                  <Color blue="bf" green="82" id="CheckBoxMenuItem.acceleratorForeground" palette="3" red="63" type="palette"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="LOGIN"/>
               </Properties>
