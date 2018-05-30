@@ -16,6 +16,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
      */
     public VentanaAdmin() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**
@@ -31,28 +32,29 @@ public class VentanaAdmin extends javax.swing.JFrame {
         jLabel_Usuario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Biblioteca Administrador");
 
         jPanel1.setBackground(javax.swing.UIManager.getDefaults().getColor("activeCaption"));
 
-        jLabel_Usuario.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jLabel_Usuario.setFont(new java.awt.Font("Berlin Sans FB", 0, 24)); // NOI18N
         jLabel_Usuario.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_Usuario.setText("BIBLIOTECA");
+        jLabel_Usuario.setText("Usuario");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(812, Short.MAX_VALUE)
+                .addContainerGap(819, Short.MAX_VALUE)
                 .addComponent(jLabel_Usuario)
-                .addContainerGap())
+                .addGap(23, 23, 23))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel_Usuario)
-                .addContainerGap(437, Short.MAX_VALUE))
+                .addContainerGap(430, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -105,7 +107,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel_Usuario;
+    public static javax.swing.JLabel jLabel_Usuario;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
