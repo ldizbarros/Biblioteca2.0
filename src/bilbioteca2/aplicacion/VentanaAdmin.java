@@ -5,6 +5,8 @@
  */
 package bilbioteca2.aplicacion;
 
+import bilbioteca2.metodos.MetodosGUI;
+
 /**
  *
  * @author laudi
@@ -30,6 +32,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel_Usuario = new javax.swing.JLabel();
+        jLabel_Cerrar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca Administrador");
@@ -40,13 +43,22 @@ public class VentanaAdmin extends javax.swing.JFrame {
         jLabel_Usuario.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Usuario.setText("Usuario");
 
+        jLabel_Cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilbioteca2/aplicacion/close.png"))); // NOI18N
+        jLabel_Cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_CerrarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(819, Short.MAX_VALUE)
-                .addComponent(jLabel_Usuario)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel_Cerrar)
+                    .addComponent(jLabel_Usuario))
                 .addGap(23, 23, 23))
         );
         jPanel1Layout.setVerticalGroup(
@@ -54,7 +66,9 @@ public class VentanaAdmin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel_Usuario)
-                .addContainerGap(430, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 386, Short.MAX_VALUE)
+                .addComponent(jLabel_Cerrar)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -70,6 +84,11 @@ public class VentanaAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel_CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_CerrarMouseClicked
+        MetodosGUI.cerrarSesion();
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel_CerrarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -107,6 +126,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel_Cerrar;
     public static javax.swing.JLabel jLabel_Usuario;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

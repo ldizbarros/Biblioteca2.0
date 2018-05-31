@@ -32,5 +32,8 @@ public class MetodosGUI {
         }
     }
     
-    
+    public static void cerrarSesion(){
+        PaginaPrincipal main = new PaginaPrincipal();
+        main.setVisible(true);
+    }
 }
