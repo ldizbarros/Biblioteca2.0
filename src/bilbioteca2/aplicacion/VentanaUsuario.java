@@ -264,8 +264,6 @@ public class VentanaUsuario extends javax.swing.JFrame {
                 filtro="seccion";
                 count+=1;
             }
-            System.out.println(count);
-            System.out.println(filtro);
             if (count>1){
                 Biblioteca.mostrarMensaje("A seleccionado mas de un filtro.\nPor favor seleccione un filtro por busqueda");
             }else{
