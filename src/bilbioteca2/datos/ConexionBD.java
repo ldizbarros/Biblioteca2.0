@@ -84,8 +84,9 @@ public class ConexionBD {
         ArrayList <Libro> resultadosBusqueda = new ArrayList();
         ResultSet result1 = null;
         try {
-            PreparedStatement st1 = connect.prepareStatement("SELECT * FROM libros INNER JOIN ejemplares " +
-            "ON libros.codLibro=ejemplares.codEjemplar INNER JOIN autores ON libros.codAutor=autores.codAutor " +
+            PreparedStatement st1 = connect.prepareStatement("SELECT distinct libros.codLibro, titulo,autor,editorial,isbn,añoPublicacion,seccion"+
+            " FROM libros INNER JOIN ejemplares " +
+            "ON libros.codLibro=ejemplares.codLibro INNER JOIN autores ON libros.codAutor=autores.codAutor " +
             "INNER JOIN secciones ON libros.codSeccion=secciones.codSeccion " +
             "WHERE titulo like '%"+busqueda+"%' or argumento like '%"+busqueda+"%' or isbn like '%"+busqueda+"%' or editorial like '%"+busqueda+"%' or " +
             "añoPublicacion like '%"+busqueda+"%' or autor like '%"+busqueda+"%' or seccion like '%"+busqueda+"%'");
@@ -96,6 +97,8 @@ public class ConexionBD {
                         result1.getString("editorial"),result1.getString("isbn"),result1.getString("añoPublicacion"),
                         result1.getString("seccion"),ejemplares);
                 resultadosBusqueda.add(nuevoLibro);
+                System.out.println(result1.getInt("codLibro"));
+                System.out.println(nuevoLibro.toString());
             }
         } catch(NullPointerException e) {
              Biblioteca.mostrarMensaje("No se han encontrado coincidencias.");
