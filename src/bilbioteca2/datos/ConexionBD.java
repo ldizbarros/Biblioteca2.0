@@ -78,6 +78,35 @@ public class ConexionBD {
         return ejemplares;
     }
     
+    public static int calcularCodigos(String tabla){
+        int codigo = 0;
+        conectarBD();
+        ResultSet result = null;
+        try {
+            PreparedStatement st = null;
+            if (tabla.equalsIgnoreCase("libros")){
+                st= connect.prepareStatement("select max(codLibro) as codigo from libros");
+            }else if (tabla.equalsIgnoreCase("ejemplares")){
+                st= connect.prepareStatement("select max(codEjemplar) as codigo from ejemplares");
+            }else if (tabla.equalsIgnoreCase("autor")) {
+                st= connect.prepareStatement("select max(codAutor) as codigo from autores");
+            }else if(tabla.equalsIgnoreCase("usuarios")){
+                st= connect.prepareStatement("select max(codUsuario) as codigo from usuarios");
+            }   
+            result = st.executeQuery();
+            if (result.next()) {
+                codigo = result.getInt("codigo")+1;
+            }
+        } catch(NullPointerException e) {
+             Biblioteca.mostrarMensaje("El libro introducido no tiene ejemplares disponibles");
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        cerrarBD();
+        return codigo;
+    }
+    
     
     public static ArrayList <Libro> busqueda(String busqueda, String filtro){
         conectarBD();
