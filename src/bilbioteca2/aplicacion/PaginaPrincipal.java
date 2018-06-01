@@ -40,7 +40,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         jLabel_Titulo.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Titulo.setText("BIBLIOTECA");
 
-        jPanel2.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleBackground"));
+        jPanel2.setBackground(javax.swing.UIManager.getDefaults().getColor("activeCaption"));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel_Contraseña.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 24)); // NOI18N

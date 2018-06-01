@@ -1,6 +1,8 @@
 package bilbioteca2.aplicacion;
 
 import bilbioteca2.metodos.MetodosGUI;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -11,6 +13,8 @@ public class VentanaUsuario extends javax.swing.JFrame {
     /**
      * Creates new form VentanaUsuario
      */
+    DefaultTableModel tabla = new DefaultTableModel();
+    
     public VentanaUsuario() {
         initComponents();
         this.setLocationRelativeTo(this);
@@ -121,6 +125,11 @@ public class VentanaUsuario extends javax.swing.JFrame {
         });
 
         jL_Buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilbioteca2/aplicacion/search.png"))); // NOI18N
+        jL_Buscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jL_BuscarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -222,6 +231,29 @@ public class VentanaUsuario extends javax.swing.JFrame {
         MetodosGUI.cerrarSesion();
         this.setVisible(false);
     }//GEN-LAST:event_jLabel_CerrarMouseClicked
+
+    private void jL_BuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jL_BuscarMouseClicked
+        String filtro = "";
+        if (jRB_Autor.isSelected()){
+            filtro="autor";
+        }else if (jRB_Titulo.isSelected()){
+            filtro="titulo";
+        }else if (jRB_Editorial.isSelected()){
+            filtro="editorial";
+        }else if (jRB_ISBN.isSelected()){
+            filtro="isbn";
+        }else if(jRB_Publicacion.isSelected()){
+            filtro="publicacion";
+        }else if(jRB_Seccion.isSelected()){
+            filtro="seccion";
+        }
+        for (int i=0; i<tabla.getRowCount();i++){
+            tabla.removeRow(i);
+            i-=1;
+        }
+        ArrayList libros = MetodosGUI.busqueda(jTF_Busqueda.getText(),filtro);
+        jTable_MostrarLibros.setModel(MetodosGUI.mostrarLibros(libros));
+    }//GEN-LAST:event_jL_BuscarMouseClicked
 
     /**
      * @param args the command line arguments
