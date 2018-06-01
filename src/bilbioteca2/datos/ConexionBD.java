@@ -83,22 +83,61 @@ public class ConexionBD {
         conectarBD();
         ArrayList <Libro> resultadosBusqueda = new ArrayList();
         ResultSet result1 = null;
+        
         try {
-            PreparedStatement st1 = connect.prepareStatement("SELECT distinct libros.codLibro, titulo,autor,editorial,isbn,añoPublicacion,seccion"+
-            " FROM libros INNER JOIN ejemplares " +
-            "ON libros.codLibro=ejemplares.codLibro INNER JOIN autores ON libros.codAutor=autores.codAutor " +
-            "INNER JOIN secciones ON libros.codSeccion=secciones.codSeccion " +
-            "WHERE titulo like '%"+busqueda+"%' or argumento like '%"+busqueda+"%' or isbn like '%"+busqueda+"%' or editorial like '%"+busqueda+"%' or " +
-            "añoPublicacion like '%"+busqueda+"%' or autor like '%"+busqueda+"%' or seccion like '%"+busqueda+"%'");
-            result1 = st1.executeQuery();
+            
+            PreparedStatement st = null;
+            if (filtro.equalsIgnoreCase("")){
+                st = connect.prepareStatement("SELECT distinct libros.codLibro, titulo,autor,editorial,isbn,añoPublicacion,seccion"+
+                " FROM libros INNER JOIN ejemplares " +
+                "ON libros.codLibro=ejemplares.codLibro INNER JOIN autores ON libros.codAutor=autores.codAutor " +
+                "INNER JOIN secciones ON libros.codSeccion=secciones.codSeccion " +
+                "WHERE titulo like '%"+busqueda+"%' or argumento like '%"+busqueda+"%' or isbn like '%"+busqueda+"%' or editorial like '%"+busqueda+"%' or " +
+                "añoPublicacion like '%"+busqueda+"%' or autor like '%"+busqueda+"%' or seccion like '%"+busqueda+"%'");
+            }else if (filtro.equalsIgnoreCase("autor")){
+                st = connect.prepareStatement("SELECT distinct libros.codLibro, titulo,autor,editorial,isbn,añoPublicacion,seccion"+
+                " FROM libros INNER JOIN ejemplares " +
+                "ON libros.codLibro=ejemplares.codLibro INNER JOIN autores ON libros.codAutor=autores.codAutor " +
+                "INNER JOIN secciones ON libros.codSeccion=secciones.codSeccion " +
+                "WHERE autor like '%"+busqueda+"%'");
+            }else if (filtro.equalsIgnoreCase("titulo")){
+                st = connect.prepareStatement("SELECT distinct libros.codLibro, titulo,autor,editorial,isbn,añoPublicacion,seccion"+
+                " FROM libros INNER JOIN ejemplares " +
+                "ON libros.codLibro=ejemplares.codLibro INNER JOIN autores ON libros.codAutor=autores.codAutor " +
+                "INNER JOIN secciones ON libros.codSeccion=secciones.codSeccion " +
+                "WHERE titulo like '%"+busqueda+"%'");
+            }else if (filtro.equalsIgnoreCase("editorial")){
+                st = connect.prepareStatement("SELECT distinct libros.codLibro, titulo,autor,editorial,isbn,añoPublicacion,seccion"+
+                " FROM libros INNER JOIN ejemplares " +
+                "ON libros.codLibro=ejemplares.codLibro INNER JOIN autores ON libros.codAutor=autores.codAutor " +
+                "INNER JOIN secciones ON libros.codSeccion=secciones.codSeccion " +
+                "WHERE editorial like '%"+busqueda+"%'");
+            }else if (filtro.equalsIgnoreCase("isbn")){
+                st = connect.prepareStatement("SELECT distinct libros.codLibro, titulo,autor,editorial,isbn,añoPublicacion,seccion"+
+                " FROM libros INNER JOIN ejemplares " +
+                "ON libros.codLibro=ejemplares.codLibro INNER JOIN autores ON libros.codAutor=autores.codAutor " +
+                "INNER JOIN secciones ON libros.codSeccion=secciones.codSeccion " +
+                "WHERE isbn like '%"+busqueda+"%'");
+            }else if (filtro.equalsIgnoreCase("publicacion")){
+                st = connect.prepareStatement("SELECT distinct libros.codLibro, titulo,autor,editorial,isbn,añoPublicacion,seccion"+
+                " FROM libros INNER JOIN ejemplares " +
+                "ON libros.codLibro=ejemplares.codLibro INNER JOIN autores ON libros.codAutor=autores.codAutor " +
+                "INNER JOIN secciones ON libros.codSeccion=secciones.codSeccion " +
+                "WHERE añoPublicacion like '%"+busqueda+"%'");
+            }else if (filtro.equalsIgnoreCase("seccion")){
+                st = connect.prepareStatement("SELECT distinct libros.codLibro, titulo,autor,editorial,isbn,añoPublicacion,seccion"+
+                " FROM libros INNER JOIN ejemplares " +
+                "ON libros.codLibro=ejemplares.codLibro INNER JOIN autores ON libros.codAutor=autores.codAutor " +
+                "INNER JOIN secciones ON libros.codSeccion=secciones.codSeccion " +
+                "WHERE seccion like '%"+busqueda+"%'");
+            }
+            result1 = st.executeQuery();
             while (result1.next()) {
                 int ejemplares = ejemplaresDisponibles(result1.getInt("codLibro"));
                 Libro nuevoLibro = new Libro(result1.getString("titulo"),result1.getString("autor"),
                         result1.getString("editorial"),result1.getString("isbn"),result1.getString("añoPublicacion"),
                         result1.getString("seccion"),ejemplares);
                 resultadosBusqueda.add(nuevoLibro);
-                System.out.println(result1.getInt("codLibro"));
-                System.out.println(nuevoLibro.toString());
             }
         } catch(NullPointerException e) {
              Biblioteca.mostrarMensaje("No se han encontrado coincidencias.");
@@ -109,4 +148,6 @@ public class ConexionBD {
         cerrarBD();
         return resultadosBusqueda;
     }
+    
+    
 }

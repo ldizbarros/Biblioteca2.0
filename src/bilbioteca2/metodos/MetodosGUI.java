@@ -58,7 +58,6 @@ public class MetodosGUI {
             Iterator it = libros.iterator();
             while(it.hasNext()){
                 Libro libro = (Libro) it.next();
-                //System.out.println(libro.toString());
                 String[] fila = new String[7];
                 fila[0] = libro.getTitulo();
                 fila[1] = libro.getAutor();
@@ -74,8 +73,6 @@ public class MetodosGUI {
     }
     
     public static ArrayList <Libro> busqueda(String busqueda, String filtro){
-        //if (filtro.equalsIgnoreCase("")){
-            return ConexionBD.busqueda(busqueda, filtro);
-       // }
+        return ConexionBD.busqueda(busqueda, filtro);
     }
 }

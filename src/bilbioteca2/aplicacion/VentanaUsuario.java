@@ -2,7 +2,9 @@ package bilbioteca2.aplicacion;
 
 import bilbioteca2.metodos.MetodosGUI;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import libreria.Biblioteca;
 
 /**
  *
@@ -233,26 +235,52 @@ public class VentanaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel_CerrarMouseClicked
 
     private void jL_BuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jL_BuscarMouseClicked
-        String filtro = "";
-        if (jRB_Autor.isSelected()){
-            filtro="autor";
-        }else if (jRB_Titulo.isSelected()){
-            filtro="titulo";
-        }else if (jRB_Editorial.isSelected()){
-            filtro="editorial";
-        }else if (jRB_ISBN.isSelected()){
-            filtro="isbn";
-        }else if(jRB_Publicacion.isSelected()){
-            filtro="publicacion";
-        }else if(jRB_Seccion.isSelected()){
-            filtro="seccion";
+        if (jTF_Busqueda.getText().equalsIgnoreCase("")){
+             Biblioteca.mostrarMensaje("No se ha introducido ningun criterio de busqueda.");
+        }else{
+            String filtro = "";
+            int count = 0;
+            if (jRB_Autor.isSelected()){
+                filtro="autor";
+                count+=1;
+            }
+            if (jRB_Titulo.isSelected()){
+                filtro="titulo";
+                count+=1;
+            }
+            if (jRB_Editorial.isSelected()){
+                filtro="editorial";
+                count+=1;
+            }
+            if (jRB_ISBN.isSelected()){
+                filtro="isbn";
+                count+=1;
+            }
+            if(jRB_Publicacion.isSelected()){
+                filtro="publicacion";
+                count+=1;
+            }
+            if(jRB_Seccion.isSelected()){
+                filtro="seccion";
+                count+=1;
+            }
+            System.out.println(count);
+            System.out.println(filtro);
+            if (count>1){
+                Biblioteca.mostrarMensaje("A seleccionado mas de un filtro.\nPor favor seleccione un filtro por busqueda");
+            }else{
+                for (int i=0; i<tabla.getRowCount();i++){
+                    tabla.removeRow(i);
+                    i-=1;
+                }
+                ArrayList libros = MetodosGUI.busqueda(jTF_Busqueda.getText(),filtro);
+                if (!libros.isEmpty()){
+                    jTable_MostrarLibros.setModel(MetodosGUI.mostrarLibros(libros));
+                }else{
+                    JOptionPane.showMessageDialog(null, "No se han encontrado coincidencias");
+                }
+            }
         }
-        for (int i=0; i<tabla.getRowCount();i++){
-            tabla.removeRow(i);
-            i-=1;
-        }
-        ArrayList libros = MetodosGUI.busqueda(jTF_Busqueda.getText(),filtro);
-        jTable_MostrarLibros.setModel(MetodosGUI.mostrarLibros(libros));
     }//GEN-LAST:event_jL_BuscarMouseClicked
 
     /**
