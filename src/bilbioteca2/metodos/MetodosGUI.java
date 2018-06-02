@@ -3,6 +3,7 @@ package bilbioteca2.metodos;
 import bilbioteca2.aplicacion.*;
 import bilbioteca2.datos.ConexionBD;
 import bilbioteca2.datos.Libro;
+import bilbioteca2.datos.Usuario;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
@@ -13,7 +14,7 @@ public class MetodosGUI {
     
     public static void login(String login, String contraseña){
         if (login.equalsIgnoreCase("") || contraseña.equalsIgnoreCase("")){
-            Biblioteca.mostrarMensaje("No a completado todos los campos.\nIntentelo de nuevo");
+            Biblioteca.mostrarMensaje("No han completado todos los campos.\nInténtelo de nuevo");
             PaginaPrincipal main = new PaginaPrincipal();
             main.setVisible(true);
         }else{
@@ -74,5 +75,15 @@ public class MetodosGUI {
     
     public static ArrayList <Libro> busqueda(String busqueda, String filtro){
         return ConexionBD.busqueda(busqueda, filtro);
+    }
+    public static void añadirS(String dni, String nombre, String apellidos, String telefono, String correo, String login, String password, boolean administrador){
+        
+         if (dni.equalsIgnoreCase("") || nombre.equalsIgnoreCase("")||apellidos.equalsIgnoreCase("") || telefono.equalsIgnoreCase("")||
+                 correo.equalsIgnoreCase("") || login.equalsIgnoreCase("")||password.equalsIgnoreCase("")){
+             Biblioteca.mostrarMensaje("No han completado todos los campos.\nInténtelo de nuevo");
+         }else{
+             Usuario us = new Usuario(dni,nombre,apellidos,telefono,correo,login,password, administrador);
+             ConexionBD.añadirSocio(us);
+         }
     }
 }

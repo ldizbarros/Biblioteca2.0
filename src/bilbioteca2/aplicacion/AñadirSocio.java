@@ -6,9 +6,8 @@
 
 package bilbioteca2.aplicacion;
 
-import bilbioteca2.datos.ConexionBD;
-import bilbioteca2.datos.Usuario;
 import bilbioteca2.metodos.MetodosGUI;
+
 
 /**
  *
@@ -44,8 +43,9 @@ public class AñadirSocio extends javax.swing.JFrame {
         jTelefono = new javax.swing.JTextField();
         jCorreo = new javax.swing.JTextField();
         jLogin = new javax.swing.JTextField();
-        jContraseña = new javax.swing.JTextField();
         jApellidos = new javax.swing.JTextField();
+        jAdmin = new javax.swing.JCheckBox();
+        jContraseña = new javax.swing.JPasswordField();
         jLabel_Titulo = new javax.swing.JLabel();
         jB_login1 = new javax.swing.JButton();
 
@@ -95,9 +95,12 @@ public class AñadirSocio extends javax.swing.JFrame {
 
         jLogin.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        jContraseña.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
         jApellidos.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        jAdmin.setBackground(javax.swing.UIManager.getDefaults().getColor("activeCaption"));
+        jAdmin.setText("Administrador");
+
+        jContraseña.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -113,10 +116,6 @@ public class AñadirSocio extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jContraseña))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
@@ -129,15 +128,25 @@ public class AñadirSocio extends javax.swing.JFrame {
                                         .addComponent(jTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
-                                .addGap(47, 47, 47)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                                    .addComponent(jApellidos))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel1))
+                                        .addGap(47, 47, 47)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                                            .addComponent(jApellidos))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(66, 66, 66))))
+                        .addGap(66, 66, 66))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jAdmin)
+                        .addGap(74, 74, 74))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,11 +175,13 @@ public class AñadirSocio extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(30, 30, 30))
+                    .addComponent(jLabel7)
+                    .addComponent(jContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jAdmin)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jLabel_Titulo.setFont(new java.awt.Font("Berlin Sans FB", 0, 36)); // NOI18N
@@ -194,14 +205,14 @@ public class AñadirSocio extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(jB_login1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(131, 131, 131)
                         .addComponent(jLabel_Titulo))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
+                        .addComponent(jB_login1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -211,9 +222,9 @@ public class AñadirSocio extends javax.swing.JFrame {
                 .addComponent(jLabel_Titulo)
                 .addGap(27, 27, 27)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jB_login1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -233,8 +244,8 @@ public class AñadirSocio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jB_login1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_login1ActionPerformed
-//        MetodosGUI.añadir(jDni.getText(),jNombre.getText(),jApellidos.getText(),
-//        jTelefono.getText(),jCorreo.getText(),jLogin.getText(),jContraseña.getText());
+        MetodosGUI.añadirS(jDni.getText(),jNombre.getText(),jApellidos.getText(),
+        jTelefono.getText(),jCorreo.getText(),jLogin.getText(),jContraseña.getText(),jAdmin.isSelected());
        
     }//GEN-LAST:event_jB_login1ActionPerformed
 
@@ -274,9 +285,10 @@ public class AñadirSocio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox jAdmin;
     private javax.swing.JTextField jApellidos;
     private javax.swing.JButton jB_login1;
-    private javax.swing.JTextField jContraseña;
+    private javax.swing.JPasswordField jContraseña;
     private javax.swing.JTextField jCorreo;
     private javax.swing.JTextField jDni;
     private javax.swing.JLabel jLabel1;

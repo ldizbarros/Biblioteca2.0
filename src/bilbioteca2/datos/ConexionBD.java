@@ -178,5 +178,27 @@ public class ConexionBD {
         return resultadosBusqueda;
     }
     
-    
+     public static void añadirSocio(Usuario usuario) {
+
+        int codUsuario= calcularCodigos("usuarios");
+        conectarBD();
+        
+        try {
+            PreparedStatement st = connect.prepareStatement("insert into usuarios (codUsuario, dni, nombre, apellidos,telefono, correo, login, password, admin) values (?,?,?,?,?,?,?,?,?)");
+            st.setInt(1, codUsuario );
+            st.setString(2, usuario.getDni());
+            st.setString(3, usuario.getNombre());
+            st.setString(4, usuario.getApellidos());
+            st.setString(5, usuario.getTelefono());
+            st.setString(6, usuario.getCorreo());
+            st.setString(7, usuario.getLogin());
+            st.setString(8, usuario.getPassword());
+            st.setBoolean(9, usuario.isAdministrador());
+            st.execute();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        cerrarBD();
+    }
 }

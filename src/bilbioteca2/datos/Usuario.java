@@ -11,11 +11,12 @@ public class Usuario {
     private String correo;
     private String login;
     private String password;
+    private boolean administrador;
 
     public Usuario() {
     }
 
-    public Usuario(String dni, String nombre, String apellidos, String telefono, String correo, String login, String password) {
+    public Usuario(String dni, String nombre, String apellidos, String telefono, String correo, String login, String password,boolean administrador) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -23,6 +24,7 @@ public class Usuario {
         this.correo = correo;
         this.login = login;
         this.password = password;
+        this.administrador= administrador;
     }
 
     public String getDni() {
@@ -53,6 +55,10 @@ public class Usuario {
         return password;
     }
 
+    public boolean isAdministrador() {
+        return administrador;
+    }
+
     public void setDni(String dni) {
         this.dni = dni;
     }
@@ -80,7 +86,10 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
+    public void setAdministrador(boolean administrador) {
+        this.administrador = administrador;
+    }
     
     
 }
