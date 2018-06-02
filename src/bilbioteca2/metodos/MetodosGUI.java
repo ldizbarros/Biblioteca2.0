@@ -1,8 +1,7 @@
 package bilbioteca2.metodos;
 
 import bilbioteca2.aplicacion.*;
-import bilbioteca2.datos.ConexionBD;
-import bilbioteca2.datos.Libro;
+import bilbioteca2.datos.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
@@ -32,6 +31,7 @@ public class MetodosGUI {
                     usuario.setVisible(true);
                     usuario.setName(result[0]);
                     VentanaUsuario.jLabel_Usuario.setText("Hola "+result[0]);
+                    VentanaUsuario.jLabel_codUsuario.setText(result[2]);
                 }
             }
         }
@@ -74,5 +74,35 @@ public class MetodosGUI {
     
     public static ArrayList <Libro> busqueda(String busqueda, String filtro){
         return ConexionBD.busqueda(busqueda, filtro);
+    }
+    
+    public static ArrayList <Prestamos> verPrestamos(int codUsuario){
+        return ConexionBD.prestamosUsuarios(codUsuario);
+    } 
+    
+    public static DefaultTableModel mostrarPrestamos(ArrayList <Prestamos> prestamos){
+         if (prestamos.isEmpty()){
+            JOptionPane.showMessageDialog(null, "No tienes ningun prestamo sin devolver");
+            return null;
+        }else{
+            DefaultTableModel tabla = new DefaultTableModel();
+            tabla.addColumn("TITULO");
+            tabla.addColumn("FECHA DEVOLUCION");
+            tabla.addColumn("AUMENTO");
+            Iterator it = prestamos.iterator();
+            while(it.hasNext()){
+                Prestamos prestamo = (Prestamos) it.next();
+                String[] fila = new String[7];
+                fila[0] = prestamo.getLibro();
+                fila[1] = prestamo.getFechaDevolucion();
+                if (prestamo.getAumento()==2){
+                    fila[2] = String.valueOf("Ya no tiene disponibles mas aumentos");
+                }else{
+                    fila[2] = String.valueOf("Ha hecho "+prestamo.getAumento()+" aumentos");
+                }
+                tabla.addRow(fila);
+            }
+            return tabla;
+        }
     }
 }

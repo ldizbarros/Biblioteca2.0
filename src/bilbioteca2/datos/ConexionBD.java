@@ -32,20 +32,23 @@ public class ConexionBD {
     
     public static String[] login(String usuario, String contraseña){
         conectarBD();
-        String [] resultado = new String[2];
+        String [] resultado = new String[3];
         ResultSet result = null;
         try {
-            PreparedStatement st = connect.prepareStatement("SELECT nombre,admin FROM usuarios where login='"+usuario+"' and password='"+contraseña+"'");
+            PreparedStatement st = connect.prepareStatement("SELECT nombre,admin,codUsuario FROM usuarios where login='"+usuario+"' and password='"+contraseña+"'");
             result = st.executeQuery();
             if (result.next()) {
                 boolean admin = result.getBoolean("admin");
                 String nombre = result.getString("nombre");
+                String codUsuario = String.valueOf(result.getInt("codUsuario"));
                 if (admin){
                     resultado[0]= nombre;
                     resultado[1]= "true";
+                    resultado[2]= codUsuario;
                 }else{
                     resultado[0]= nombre;
                     resultado[1]= "false";
+                    resultado[2]= codUsuario;
                 }
             }
         } catch(NullPointerException e) {
@@ -178,5 +181,26 @@ public class ConexionBD {
         return resultadosBusqueda;
     }
     
-    
+    public static ArrayList <Prestamos> prestamosUsuarios(int codUsuario){
+        conectarBD();
+        ArrayList <Prestamos> prestamosUsuario = new ArrayList();
+        ResultSet result1 = null;
+        try {
+            PreparedStatement st = connect.prepareStatement("select * from prestamos inner join ejemplares on prestamos.codEjemplar=ejemplares.codEjemplar inner join "
+                    + "libros on libros.codLibro=ejemplares.codLibro where devuelto=0 and prestamos.codUsuario="+codUsuario);
+            result1 = st.executeQuery();
+            while (result1.next()) {
+                Prestamos nuevoPrestamo = new Prestamos(result1.getInt(codUsuario),result1.getString("titulo"),result1.getString("fechaInicio"),result1.getString("fechaFin")
+                ,result1.getInt("aumento"));
+                prestamosUsuario.add(nuevoPrestamo);
+            }
+        } catch(NullPointerException e) {
+             Biblioteca.mostrarMensaje("No se han encontrado coincidencias.");
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        cerrarBD();
+        return prestamosUsuario;
+    }
 }
