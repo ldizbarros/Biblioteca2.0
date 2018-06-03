@@ -35,7 +35,7 @@ public class EliminarUsuario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jDNI = new javax.swing.JTextField();
         jOk = new javax.swing.JButton();
-        jLabel_Cerrar = new javax.swing.JLabel();
+        jLabel_Cerrar1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dar de baja usuario");
@@ -63,10 +63,10 @@ public class EliminarUsuario extends javax.swing.JFrame {
             }
         });
 
-        jLabel_Cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilbioteca2/aplicacion/close.png"))); // NOI18N
-        jLabel_Cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel_Cerrar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilbioteca2/aplicacion/iconos/close.png"))); // NOI18N
+        jLabel_Cerrar1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_CerrarMouseClicked(evt);
+                jLabel_Cerrar1MouseClicked(evt);
             }
         });
 
@@ -83,15 +83,14 @@ public class EliminarUsuario extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1)
                         .addGap(26, 26, 26)
-                        .addComponent(jDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jOk, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(65, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel_Cerrar)
-                .addGap(38, 38, 38))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addComponent(jOk, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel_Cerrar1)
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,11 +101,15 @@ public class EliminarUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
-                .addComponent(jOk)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(jLabel_Cerrar)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jOk)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel_Cerrar1)
+                        .addGap(34, 34, 34))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -117,9 +120,9 @@ public class EliminarUsuario extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
         );
 
         pack();
@@ -132,11 +135,11 @@ public class EliminarUsuario extends javax.swing.JFrame {
         adm.setVisible(true);
     }//GEN-LAST:event_jOkActionPerformed
 
-    private void jLabel_CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_CerrarMouseClicked
-        VentanaAdmin adm = new VentanaAdmin();
-        adm.setVisible(true);
+    private void jLabel_Cerrar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_Cerrar1MouseClicked
+        VentanaAdmin adm = new VentanaAdmin();        
         this.setVisible(false);
-    }//GEN-LAST:event_jLabel_CerrarMouseClicked
+        adm.setVisible(true);
+    }//GEN-LAST:event_jLabel_Cerrar1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -177,7 +180,7 @@ public class EliminarUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField jDNI;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel_Cerrar;
+    private javax.swing.JLabel jLabel_Cerrar1;
     private javax.swing.JLabel jLabel_Titulo;
     private javax.swing.JButton jOk;
     private javax.swing.JPanel jPanel1;
