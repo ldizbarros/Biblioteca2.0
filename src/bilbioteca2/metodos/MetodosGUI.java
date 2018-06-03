@@ -9,24 +9,24 @@ import javax.swing.table.DefaultTableModel;
 import libreria.Biblioteca;
 
 public class MetodosGUI {
-    
-    public static void login(String login, String contraseña){
-        if (login.equalsIgnoreCase("") || contraseña.equalsIgnoreCase("")){
-            Biblioteca.mostrarMensaje("No a completado todos los campos.\nIntentelo de nuevo");
+
+    public static void login(String login, String contraseña) {
+        if (login.equalsIgnoreCase("") || contraseña.equalsIgnoreCase("")) {
+            Biblioteca.mostrarMensaje("No han completado todos los campos.\nInténtelo de nuevo");
             PaginaPrincipal main = new PaginaPrincipal();
             main.setVisible(true);
-        }else{
-            String [] result = ConexionBD.login(login, contraseña);
-            if (result[0] == null){
+        } else {
+            String[] result = ConexionBD.login(login, contraseña);
+            if (result[0] == null) {
                 Biblioteca.mostrarMensaje("El usuario o la contraseña introducidos no son correctos.");
                 PaginaPrincipal main = new PaginaPrincipal();
                 main.setVisible(true);
-            }else{
-                if (result[1].equalsIgnoreCase("true")){
+            } else {
+                if (result[1].equalsIgnoreCase("true")) {
                     VentanaAdmin admin = new VentanaAdmin();
-                    admin.setVisible(true);   
-                    VentanaAdmin.jLabel_Usuario.setText("Hola "+result[0]);
-                }else{
+                    admin.setVisible(true);
+                    VentanaAdmin.jLabel_Usuario.setText("Hola " + result[0]);
+                } else {
                     VentanaUsuario usuario = new VentanaUsuario();
                     usuario.setVisible(true);
                     usuario.setName(result[0]);
@@ -36,17 +36,17 @@ public class MetodosGUI {
             }
         }
     }
-    
-    public static void cerrarSesion(){
+
+    public static void cerrarSesion() {
         PaginaPrincipal main = new PaginaPrincipal();
         main.setVisible(true);
     }
-   
-    public static DefaultTableModel mostrarLibros(ArrayList <Libro> libros){
-         if (libros.isEmpty()){
+
+    public static DefaultTableModel mostrarLibros(ArrayList<Libro> libros) {
+        if (libros.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No se han encontrado coincidencias");
             return null;
-        }else{
+        } else {
             DefaultTableModel tabla = new DefaultTableModel();
             tabla.addColumn("CODIGO");
             tabla.addColumn("TITULO");
@@ -57,7 +57,7 @@ public class MetodosGUI {
             tabla.addColumn("SECCION");
             tabla.addColumn("EJEMPLARES DISPONIBLES");
             Iterator it = libros.iterator();
-            while(it.hasNext()){
+            while (it.hasNext()) {
                 Libro libro = (Libro) it.next();
                 String[] fila = new String[8];
                 fila[0] = String.valueOf(libro.getCodigo());
@@ -73,8 +73,8 @@ public class MetodosGUI {
             return tabla;
         }
     }
-    
-    public static ArrayList <Libro> busqueda(String busqueda, String filtro){
+
+    public static ArrayList<Libro> busqueda(String busqueda, String filtro) {
         return ConexionBD.busqueda(busqueda, filtro);
     }
     
@@ -123,5 +123,28 @@ public class MetodosGUI {
     public static void aumetarPrestamo(String codPrestamo){
         int codigo= Integer.parseInt(codPrestamo);
         ConexionBD.aumentarPrestamo(codigo);
+    }
+
+    public static void añadirS(String dni, String nombre, String apellidos, String telefono, String correo, String login, String password, boolean administrador) {
+
+        if (dni.equalsIgnoreCase("") || nombre.equalsIgnoreCase("") || apellidos.equalsIgnoreCase("") || telefono.equalsIgnoreCase("")
+                || correo.equalsIgnoreCase("") || login.equalsIgnoreCase("") || password.equalsIgnoreCase("")) {
+            Biblioteca.mostrarMensaje("No han completado todos los campos.\nInténtelo de nuevo");
+        } else if (Usuario.validar(dni) == false) {
+            Biblioteca.mostrarMensaje("DNI no válido");
+        } else if (telefono.length() != 9) {
+            Biblioteca.mostrarMensaje("Número de teléfono no válido");
+        } else {
+            Usuario us = new Usuario(dni, nombre, apellidos, telefono, correo, login, password, administrador);
+            ConexionBD.añadirSocio(us);
+        }
+    }
+
+    public static void eliminarS(String dni) {
+        if (dni.equalsIgnoreCase("")) {
+            Biblioteca.mostrarMensaje("Debe intoducir un DNI\nInténtelo de nuevo");
+        } else {
+            ConexionBD.eliminarSocio(dni);
+        }
     }
 }
