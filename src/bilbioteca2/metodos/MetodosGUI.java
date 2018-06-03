@@ -1,9 +1,7 @@
 package bilbioteca2.metodos;
 
 import bilbioteca2.aplicacion.*;
-import bilbioteca2.datos.ConexionBD;
-import bilbioteca2.datos.Libro;
-import bilbioteca2.datos.Usuario;
+import bilbioteca2.datos.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
@@ -32,7 +30,8 @@ public class MetodosGUI {
                     VentanaUsuario usuario = new VentanaUsuario();
                     usuario.setVisible(true);
                     usuario.setName(result[0]);
-                    VentanaUsuario.jLabel_Usuario.setText("Hola " + result[0]);
+                    VentanaUsuario.jLabel_Usuario.setText("Hola "+result[0]);
+                    VentanaUsuario.jLabel_codUsuario.setText(result[2]);
                 }
             }
         }
@@ -49,6 +48,7 @@ public class MetodosGUI {
             return null;
         } else {
             DefaultTableModel tabla = new DefaultTableModel();
+            tabla.addColumn("CODIGO");
             tabla.addColumn("TITULO");
             tabla.addColumn("AUTOR");
             tabla.addColumn("EDITORIAL");
@@ -59,14 +59,15 @@ public class MetodosGUI {
             Iterator it = libros.iterator();
             while (it.hasNext()) {
                 Libro libro = (Libro) it.next();
-                String[] fila = new String[7];
-                fila[0] = libro.getTitulo();
-                fila[1] = libro.getAutor();
-                fila[2] = libro.getEditorial();
-                fila[3] = libro.getIsbn();
-                fila[4] = libro.getAñoPublicacion();
-                fila[5] = libro.getSeccion();
-                fila[6] = String.valueOf(libro.getEjemplaresDisponibles());
+                String[] fila = new String[8];
+                fila[0] = String.valueOf(libro.getCodigo());
+                fila[1] = libro.getTitulo();
+                fila[2] = libro.getAutor();
+                fila[3] = libro.getEditorial();
+                fila[4] = libro.getIsbn();
+                fila[5] = libro.getAñoPublicacion();
+                fila[6] = libro.getSeccion();
+                fila[7] = String.valueOf(libro.getEjemplaresDisponibles());
                 tabla.addRow(fila);
             }
             return tabla;
@@ -75,6 +76,53 @@ public class MetodosGUI {
 
     public static ArrayList<Libro> busqueda(String busqueda, String filtro) {
         return ConexionBD.busqueda(busqueda, filtro);
+    }
+    
+    public static ArrayList <Prestamos> verPrestamos(int codUsuario){
+        return ConexionBD.prestamosUsuarios(codUsuario);
+    } 
+    
+    public static DefaultTableModel mostrarPrestamos(ArrayList <Prestamos> prestamos){
+         if (prestamos.isEmpty()){
+            JOptionPane.showMessageDialog(null, "No tienes ningun prestamo sin devolver");
+            return null;
+        }else{
+            DefaultTableModel tabla = new DefaultTableModel();
+            tabla.addColumn("CODIGO");
+            tabla.addColumn("TITULO");
+            tabla.addColumn("FECHA DEVOLUCION");
+            tabla.addColumn("AUMENTO");
+            Iterator it = prestamos.iterator();
+            while(it.hasNext()){
+                Prestamos prestamo = (Prestamos) it.next();
+                String[] fila = new String[4];
+                fila[0] = String.valueOf(prestamo.getCodPrestamo());
+                fila[1] = prestamo.getLibro();
+                fila[2] = prestamo.getFechaDevolucion();
+                if (prestamo.getAumento()==2){
+                    fila[3] = String.valueOf("Ya no tiene disponibles mas aumentos");
+                }else{
+                    fila[3] = String.valueOf("Ha hecho "+prestamo.getAumento()+" aumento/s");
+                }
+                tabla.addRow(fila);
+            }
+            return tabla;
+        }
+    }
+    
+    public static void mostrarLibro(String codLibro){
+        FichaLibro mostrarFicha = new FichaLibro(codLibro);
+        mostrarFicha.setVisible(true);    
+    }
+    
+    public static String [] infoLibro(int codLibro){
+        String [] libro = ConexionBD.infoLibro(codLibro);
+        return libro;
+    }
+    
+    public static void aumetarPrestamo(String codPrestamo){
+        int codigo= Integer.parseInt(codPrestamo);
+        ConexionBD.aumentarPrestamo(codigo);
     }
 
     public static void añadirS(String dni, String nombre, String apellidos, String telefono, String correo, String login, String password, boolean administrador) {
