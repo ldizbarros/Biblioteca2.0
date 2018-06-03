@@ -33,10 +33,12 @@ public class VentanaAdmin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel_Usuario = new javax.swing.JLabel();
         jLabel_Cerrar = new javax.swing.JLabel();
-        jBorrar = new javax.swing.JButton();
-        JAñadir = new javax.swing.JButton();
+        jAñadir = new javax.swing.JButton();
+        JBorrar = new javax.swing.JButton();
         jBorrar1 = new javax.swing.JButton();
         jBorrar2 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca Administrador");
@@ -54,23 +56,23 @@ public class VentanaAdmin extends javax.swing.JFrame {
             }
         });
 
-        jBorrar.setBackground(java.awt.SystemColor.controlHighlight);
-        jBorrar.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
-        jBorrar.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
-        jBorrar.setText("AÑADIR U");
-        jBorrar.addActionListener(new java.awt.event.ActionListener() {
+        jAñadir.setBackground(java.awt.SystemColor.controlHighlight);
+        jAñadir.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
+        jAñadir.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
+        jAñadir.setText("AÑADIR U");
+        jAñadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBorrarActionPerformed(evt);
+                jAñadirActionPerformed(evt);
             }
         });
 
-        JAñadir.setBackground(java.awt.SystemColor.controlHighlight);
-        JAñadir.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
-        JAñadir.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
-        JAñadir.setText("ELIMINAR U");
-        JAñadir.addActionListener(new java.awt.event.ActionListener() {
+        JBorrar.setBackground(java.awt.SystemColor.controlHighlight);
+        JBorrar.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
+        JBorrar.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
+        JBorrar.setText("ELIMINAR U");
+        JBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JAñadirActionPerformed(evt);
+                JBorrarActionPerformed(evt);
             }
         });
 
@@ -94,50 +96,69 @@ public class VentanaAdmin extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setIcon(new javax.swing.ImageIcon("/home/sphynx/Escritorio/notebook.png")); // NOI18N
+
+        jLabel1.setIcon(new javax.swing.ImageIcon("/home/sphynx/Descargas/notebookx.png")); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel_Cerrar)
-                    .addComponent(jLabel_Usuario))
-                .addGap(23, 23, 23))
+                .addGap(280, 280, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel_Cerrar)
+                            .addComponent(jLabel_Usuario))
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jAñadir)
+                                .addGap(154, 154, 154)
+                                .addComponent(jBorrar1))
+                            .addComponent(jBorrar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(127, 127, 127))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jBorrar2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jBorrar)
-                        .addGap(102, 102, 102)
-                        .addComponent(jBorrar1)))
-                .addGap(0, 403, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(63, 63, 63)
-                    .addComponent(JAñadir)
-                    .addContainerGap(703, Short.MAX_VALUE)))
+                        .addGap(66, 66, 66)
+                        .addComponent(jLabel4)
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(317, 317, 317)
+                        .addComponent(JBorrar)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel_Usuario)
-                .addGap(240, 240, 240)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBorrar)
-                    .addComponent(jBorrar1))
-                .addGap(33, 33, 33)
-                .addComponent(jBorrar2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(jLabel_Cerrar)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(352, Short.MAX_VALUE)
-                    .addComponent(JAñadir)
-                    .addGap(80, 80, 80)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel_Cerrar)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jBorrar1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBorrar2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                                .addComponent(JBorrar)
+                                .addGap(63, 63, 63)
+                                .addComponent(jLabel4))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jAñadir)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1)))
+                        .addGap(47, 47, 47))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -159,16 +180,18 @@ public class VentanaAdmin extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jLabel_CerrarMouseClicked
 
-    private void jBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrarActionPerformed
+    private void jAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirActionPerformed
         this.setVisible(false);
-        AñadirSocio socio = new AñadirSocio();
+        AñadirUsuario socio = new AñadirUsuario();
         socio.setVisible(true);
         
-    }//GEN-LAST:event_jBorrarActionPerformed
+    }//GEN-LAST:event_jAñadirActionPerformed
 
-    private void JAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JAñadirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JAñadirActionPerformed
+    private void JBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBorrarActionPerformed
+        this.setVisible(false);
+        EliminarUsuario socio = new EliminarUsuario();
+        socio.setVisible(true);
+    }//GEN-LAST:event_JBorrarActionPerformed
 
     private void jBorrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrar1ActionPerformed
         // TODO add your handling code here:
@@ -214,10 +237,12 @@ public class VentanaAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton JAñadir;
-    private javax.swing.JButton jBorrar;
+    private javax.swing.JButton JBorrar;
+    private javax.swing.JButton jAñadir;
     private javax.swing.JButton jBorrar1;
     private javax.swing.JButton jBorrar2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel_Cerrar;
     public static javax.swing.JLabel jLabel_Usuario;
     private javax.swing.JPanel jPanel1;

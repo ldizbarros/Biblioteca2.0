@@ -90,6 +90,43 @@ public class Usuario {
     public void setAdministrador(boolean administrador) {
         this.administrador = administrador;
     }
-    
+   public static boolean validar(String dni){
+
+        boolean valido = true;
+
+        if(!(dni.length()>=8 && dni.length()<=9)){
+           valido= false;
+        }
+        
+        String parteNumerica = dni.substring(0, dni.length()-1);
+        int numeroDni =0;
+        
+        try{
+           numeroDni = Integer.parseInt(parteNumerica);
+        }catch(NumberFormatException e){
+            valido= false;
+        }
+        
+        char letra = dni.substring(dni.length()-1, dni.length()).toUpperCase().charAt(0);
+        
+        if(!(letra>='A' && letra<='Z')){
+            valido= false;
+        }
+        
+        final int divisor = 23;
+        
+       char letraNIF[] = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X',
+                          'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
+        
+       int resto = numeroDni % divisor;
+       
+       String nuevoDni = numeroDni +""+letraNIF[resto];
+       
+       if(!(nuevoDni.equals(dni))){
+             valido= false;
+       }
+       
+       return valido;
+    } 
     
 }

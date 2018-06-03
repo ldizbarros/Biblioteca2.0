@@ -13,11 +13,12 @@ import bilbioteca2.metodos.MetodosGUI;
  *
  * @author mbacelofernandez
  */
-public class AñadirSocio extends javax.swing.JFrame {
+public class AñadirUsuario extends javax.swing.JFrame {
 
     /** Creates new form AñadirSocio */
-    public AñadirSocio() {
+    public AñadirUsuario() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /** This method is called from within the constructor to
@@ -44,12 +45,14 @@ public class AñadirSocio extends javax.swing.JFrame {
         jCorreo = new javax.swing.JTextField();
         jLogin = new javax.swing.JTextField();
         jApellidos = new javax.swing.JTextField();
-        jAdmin = new javax.swing.JCheckBox();
         jContraseña = new javax.swing.JPasswordField();
+        jAdmin = new javax.swing.JRadioButton();
         jLabel_Titulo = new javax.swing.JLabel();
-        jB_login1 = new javax.swing.JButton();
+        jOk = new javax.swing.JButton();
+        jLabel_Cerrar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Nuevo usuario");
 
         jPanel2.setBackground(javax.swing.UIManager.getDefaults().getColor("activeCaption"));
 
@@ -97,10 +100,12 @@ public class AñadirSocio extends javax.swing.JFrame {
 
         jApellidos.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        jAdmin.setBackground(javax.swing.UIManager.getDefaults().getColor("activeCaption"));
-        jAdmin.setText("Administrador");
-
         jContraseña.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        jAdmin.setBackground(javax.swing.UIManager.getDefaults().getColor("RadioButton.shadow"));
+        jAdmin.setFont(new java.awt.Font("Dialog", 1, 22)); // NOI18N
+        jAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        jAdmin.setText("Administrador");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,13 +145,10 @@ public class AñadirSocio extends javax.swing.JFrame {
                                         .addGap(47, 47, 47)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                                            .addComponent(jApellidos))))
+                                            .addComponent(jApellidos)))
+                                    .addComponent(jAdmin))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(66, 66, 66))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jAdmin)
-                        .addGap(74, 74, 74))))
+                        .addGap(66, 66, 66))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,22 +181,29 @@ public class AñadirSocio extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jAdmin)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         jLabel_Titulo.setFont(new java.awt.Font("Berlin Sans FB", 0, 36)); // NOI18N
         jLabel_Titulo.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Titulo.setText("Añadir usuario:");
 
-        jB_login1.setBackground(java.awt.SystemColor.controlHighlight);
-        jB_login1.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
-        jB_login1.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
-        jB_login1.setText("ACEPTAR");
-        jB_login1.addActionListener(new java.awt.event.ActionListener() {
+        jOk.setBackground(java.awt.SystemColor.controlHighlight);
+        jOk.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
+        jOk.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
+        jOk.setText("ACEPTAR");
+        jOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jB_login1ActionPerformed(evt);
+                jOkActionPerformed(evt);
+            }
+        });
+
+        jLabel_Cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilbioteca2/aplicacion/close.png"))); // NOI18N
+        jLabel_Cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_CerrarMouseClicked(evt);
             }
         });
 
@@ -205,14 +214,16 @@ public class AñadirSocio extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
+                        .addGap(116, 116, 116)
                         .addComponent(jLabel_Titulo))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(jB_login1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jOk, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(86, 86, 86)
+                                .addComponent(jLabel_Cerrar))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -222,9 +233,13 @@ public class AñadirSocio extends javax.swing.JFrame {
                 .addComponent(jLabel_Titulo)
                 .addGap(27, 27, 27)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jB_login1)
-                .addGap(23, 23, 23))
+                .addGap(26, 26, 26)
+                .addComponent(jOk)
+                .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel_Cerrar)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -243,11 +258,20 @@ public class AñadirSocio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jB_login1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_login1ActionPerformed
+    private void jOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOkActionPerformed
         MetodosGUI.añadirS(jDni.getText(),jNombre.getText(),jApellidos.getText(),
         jTelefono.getText(),jCorreo.getText(),jLogin.getText(),jContraseña.getText(),jAdmin.isSelected());
+        VentanaAdmin adm = new VentanaAdmin();
+        this.setVisible(false);
+        adm.setVisible(true);
        
-    }//GEN-LAST:event_jB_login1ActionPerformed
+    }//GEN-LAST:event_jOkActionPerformed
+
+    private void jLabel_CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_CerrarMouseClicked
+        VentanaAdmin adm = new VentanaAdmin();
+        adm.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel_CerrarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -266,28 +290,28 @@ public class AñadirSocio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AñadirSocio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AñadirUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AñadirSocio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AñadirUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AñadirSocio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AñadirUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AñadirSocio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AñadirUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AñadirSocio().setVisible(true);
+                new AñadirUsuario().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jAdmin;
+    private javax.swing.JRadioButton jAdmin;
     private javax.swing.JTextField jApellidos;
-    private javax.swing.JButton jB_login1;
     private javax.swing.JPasswordField jContraseña;
     private javax.swing.JTextField jCorreo;
     private javax.swing.JTextField jDni;
@@ -298,9 +322,11 @@ public class AñadirSocio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel_Cerrar;
     private javax.swing.JLabel jLabel_Titulo;
     private javax.swing.JTextField jLogin;
     private javax.swing.JTextField jNombre;
+    private javax.swing.JButton jOk;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTelefono;
