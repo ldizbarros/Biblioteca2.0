@@ -111,10 +111,8 @@ public class MetodosGUI {
     }
     
     public static void mostrarLibro(String codLibro){
-        System.out.println(codLibro);
-        FichaLibro.jL_codLibro.setText(codLibro);
-//        FichaLibro mostrarFicha = new FichaLibro();
-//        mostrarFicha.setVisible(true);
+        FichaLibro mostrarFicha = new FichaLibro(codLibro);
+        mostrarFicha.setVisible(true);    
     }
     
     public static String [] infoLibro(int codLibro){

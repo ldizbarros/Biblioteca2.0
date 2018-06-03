@@ -93,11 +93,12 @@
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jB_verLibro" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                                   <Component id="jLabel_Cerrar" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jB_aumento" min="-2" max="-2" attributes="0"/>
+                              <Component id="jB_verLibro" alignment="1" min="-2" pref="111" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="19" max="32767" attributes="0"/>
                       </Group>

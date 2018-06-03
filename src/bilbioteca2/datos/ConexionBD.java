@@ -211,16 +211,17 @@ public class ConexionBD {
         ResultSet result = null;
         try {
             PreparedStatement st = connect.prepareStatement("select * from libros inner join autores on libros.codAutor=autores.codAutor inner join secciones "
-                    + "on libro.codSeccion=secciones.codSeccion where codLibro="+codLibro);
+                    + "on libros.codSeccion=secciones.codSeccion where codLibro="+codLibro);
             result = st.executeQuery();
             if (result.next()) {
+                int ejemplares = ejemplaresDisponibles(codLibro);
                 libro [0] = result.getString("titulo");
                 libro [1] = result.getString("autor");
                 libro [2] = result.getString("seccion");
                 libro [3] = result.getString("zona");
                 libro [4] = result.getString("argumento");
                 libro [5] = result.getString("numEjemplares");
-                libro [6] = result.getString(String.valueOf(ejemplaresDisponibles(codLibro)));
+                libro [6] = String.valueOf(ejemplares);
             }
         } catch(NullPointerException e) {
              Biblioteca.mostrarMensaje("No se han encontrado coincidencias.");
@@ -233,7 +234,6 @@ public class ConexionBD {
     }
     
     public static void aumentarPrestamo(int codPrestamo){
-        //cerrarBD();
         conectarBD();   
         int aumento=0,aumentos=0;
         String fecha="";
@@ -254,12 +254,12 @@ public class ConexionBD {
             LocalDate nueva = fechaFin.plusDays(15);
             String nuevaFecha = nueva.getDayOfMonth()+"/"+nueva.getMonthValue()+"/"+nueva.getYear();
             if (aumento==2){
-                aumentos = aumento;
+                Biblioteca.mostrarMensaje("Ya ha hecho todos los aumentos permitidos.\nNo puede aumentar el prestamo");
             }else{
                 aumentos = aumento+1;
+                PreparedStatement st2 = connect.prepareStatement("UPDATE Prestamos SET fechaFin='"+nuevaFecha+"' , aumento = "+aumentos+"   where codPrestamo="+codPrestamo);
+                st2.executeUpdate();
             }
-            PreparedStatement st2 = connect.prepareStatement("UPDATE Prestamos SET fechaFin='"+nuevaFecha+"' , aumento = "+aumentos+"   where codPrestamo="+codPrestamo);
-            st2.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
