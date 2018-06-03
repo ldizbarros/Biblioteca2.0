@@ -6,6 +6,10 @@
 package bilbioteca2.aplicacion;
 
 import bilbioteca2.metodos.MetodosGUI;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import libreria.Biblioteca;
 
 /**
  *
@@ -16,9 +20,15 @@ public class VentanaAdmin extends javax.swing.JFrame {
     /**
      * Creates new form VentanaAdmin
      */
+    DefaultTableModel tabla = new DefaultTableModel();
+    
     public VentanaAdmin() {
         initComponents();
         this.setLocationRelativeTo(this);
+        jNuevoPrestamo.setText("<html><p>Nuevo</p><p>Prestamo</p></html>");
+        JEliminarUsuario.setText("<html><p>Eliminar</p><p>Usuario</p></html>");
+        jAñadirUsuario.setText("<html><p>Nuevo</p><p>Usuario</p></html>");
+        jDevolverPrestamo.setText("<html><p>Devolver</p><p>Prestamo</p></html>");
     }
 
     /**
@@ -32,13 +42,24 @@ public class VentanaAdmin extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel_Usuario = new javax.swing.JLabel();
+        jAñadirUsuario = new javax.swing.JButton();
+        JEliminarUsuario = new javax.swing.JButton();
+        jNuevoPrestamo = new javax.swing.JButton();
+        jDevolverPrestamo = new javax.swing.JButton();
+        jLabel_buscador = new javax.swing.JLabel();
+        jTF_Busqueda = new javax.swing.JTextField();
+        jL_Buscar = new javax.swing.JLabel();
+        jL_mostarFiltros = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jRB_Seccion = new javax.swing.JRadioButton();
+        jRB_Publicacion = new javax.swing.JRadioButton();
+        jRB_ISBN = new javax.swing.JRadioButton();
+        jRB_Editorial = new javax.swing.JRadioButton();
+        jRB_Titulo = new javax.swing.JRadioButton();
+        jRB_Autor = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable_MostrarLibros = new javax.swing.JTable();
         jLabel_Cerrar = new javax.swing.JLabel();
-        jAñadir = new javax.swing.JButton();
-        JBorrar = new javax.swing.JButton();
-        jBorrar1 = new javax.swing.JButton();
-        jBorrar2 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca Administrador");
@@ -49,116 +70,204 @@ public class VentanaAdmin extends javax.swing.JFrame {
         jLabel_Usuario.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Usuario.setText("Usuario");
 
-        jLabel_Cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilbioteca2/aplicacion/close.png"))); // NOI18N
+        jAñadirUsuario.setBackground(java.awt.SystemColor.controlHighlight);
+        jAñadirUsuario.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jAñadirUsuario.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
+        jAñadirUsuario.setText("AÑADIR U");
+        jAñadirUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAñadirUsuarioActionPerformed(evt);
+            }
+        });
+
+        JEliminarUsuario.setBackground(java.awt.SystemColor.controlHighlight);
+        JEliminarUsuario.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        JEliminarUsuario.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
+        JEliminarUsuario.setText("ELIMINAR U");
+        JEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JEliminarUsuarioActionPerformed(evt);
+            }
+        });
+
+        jNuevoPrestamo.setBackground(java.awt.SystemColor.controlHighlight);
+        jNuevoPrestamo.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jNuevoPrestamo.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
+        jNuevoPrestamo.setText("NUEVO PRES");
+        jNuevoPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNuevoPrestamoActionPerformed(evt);
+            }
+        });
+
+        jDevolverPrestamo.setBackground(java.awt.SystemColor.controlHighlight);
+        jDevolverPrestamo.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jDevolverPrestamo.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
+        jDevolverPrestamo.setText("DEVOLVER PRES");
+        jDevolverPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDevolverPrestamoActionPerformed(evt);
+            }
+        });
+
+        jLabel_buscador.setFont(new java.awt.Font("Berlin Sans FB", 0, 24)); // NOI18N
+        jLabel_buscador.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_buscador.setText("BUSCADOR:");
+
+        jTF_Busqueda.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+
+        jL_Buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilbioteca2/aplicacion/iconos/search.png"))); // NOI18N
+        jL_Buscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jL_BuscarMouseClicked(evt);
+            }
+        });
+
+        jL_mostarFiltros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilbioteca2/aplicacion/iconos/mostrar.png"))); // NOI18N
+        jL_mostarFiltros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jL_mostarFiltrosMouseClicked(evt);
+            }
+        });
+
+        jRB_Seccion.setBackground(javax.swing.UIManager.getDefaults().getColor("RadioButton.shadow"));
+        jRB_Seccion.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jRB_Seccion.setForeground(new java.awt.Color(255, 255, 255));
+        jRB_Seccion.setText("Seccion");
+
+        jRB_Publicacion.setBackground(javax.swing.UIManager.getDefaults().getColor("RadioButton.shadow"));
+        jRB_Publicacion.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jRB_Publicacion.setForeground(new java.awt.Color(255, 255, 255));
+        jRB_Publicacion.setText("Año Publicacion");
+
+        jRB_ISBN.setBackground(javax.swing.UIManager.getDefaults().getColor("RadioButton.shadow"));
+        jRB_ISBN.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jRB_ISBN.setForeground(new java.awt.Color(255, 255, 255));
+        jRB_ISBN.setText("ISBN");
+
+        jRB_Editorial.setBackground(javax.swing.UIManager.getDefaults().getColor("RadioButton.shadow"));
+        jRB_Editorial.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jRB_Editorial.setForeground(new java.awt.Color(255, 255, 255));
+        jRB_Editorial.setText("Editorial");
+
+        jRB_Titulo.setBackground(javax.swing.UIManager.getDefaults().getColor("RadioButton.shadow"));
+        jRB_Titulo.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jRB_Titulo.setForeground(new java.awt.Color(255, 255, 255));
+        jRB_Titulo.setText("Titulo");
+
+        jRB_Autor.setBackground(javax.swing.UIManager.getDefaults().getColor("RadioButton.shadow"));
+        jRB_Autor.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jRB_Autor.setForeground(new java.awt.Color(255, 255, 255));
+        jRB_Autor.setText("Autor");
+
+        jTable_MostrarLibros.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jTable_MostrarLibros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "TITULO", "AUTOR", "EDITORIAL", "ISBN", "AÑO PUBLICACION", "SECCION", "EJEMPLARES DISPONIBLES"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable_MostrarLibros);
+
+        jLabel_Cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilbioteca2/aplicacion/iconos/close.png"))); // NOI18N
         jLabel_Cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_CerrarMouseClicked(evt);
             }
         });
 
-        jAñadir.setBackground(java.awt.SystemColor.controlHighlight);
-        jAñadir.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
-        jAñadir.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
-        jAñadir.setText("AÑADIR U");
-        jAñadir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAñadirActionPerformed(evt);
-            }
-        });
-
-        JBorrar.setBackground(java.awt.SystemColor.controlHighlight);
-        JBorrar.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
-        JBorrar.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
-        JBorrar.setText("ELIMINAR U");
-        JBorrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBorrarActionPerformed(evt);
-            }
-        });
-
-        jBorrar1.setBackground(java.awt.SystemColor.controlHighlight);
-        jBorrar1.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
-        jBorrar1.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
-        jBorrar1.setText("NUEVO PRES");
-        jBorrar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBorrar1ActionPerformed(evt);
-            }
-        });
-
-        jBorrar2.setBackground(java.awt.SystemColor.controlHighlight);
-        jBorrar2.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
-        jBorrar2.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
-        jBorrar2.setText("DEVOLVER PRES");
-        jBorrar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBorrar2ActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setIcon(new javax.swing.ImageIcon("/home/sphynx/Escritorio/notebook.png")); // NOI18N
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/sphynx/Descargas/notebookx.png")); // NOI18N
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(280, 280, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel_Cerrar)
-                            .addComponent(jLabel_Usuario))
-                        .addGap(23, 23, 23))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jAñadir)
-                                .addGap(154, 154, 154)
-                                .addComponent(jBorrar1))
-                            .addComponent(jBorrar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(127, 127, 127))))
+                .addGap(84, 84, 84)
+                .addComponent(jAñadirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(JEliminarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(jNuevoPrestamo)
+                .addGap(32, 32, 32)
+                .addComponent(jDevolverPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel_Cerrar)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel_Usuario)
+                .addGap(34, 34, 34))
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel_buscador)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTF_Busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jL_Buscar)
+                            .addGap(128, 128, 128)
+                            .addComponent(jL_mostarFiltros))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jRB_Autor)
+                            .addGap(35, 35, 35)
+                            .addComponent(jRB_Titulo)
+                            .addGap(42, 42, 42)
+                            .addComponent(jRB_Editorial)
+                            .addGap(40, 40, 40)
+                            .addComponent(jRB_ISBN)
+                            .addGap(39, 39, 39)
+                            .addComponent(jRB_Publicacion)
+                            .addGap(39, 39, 39)
+                            .addComponent(jRB_Seccion)
+                            .addGap(30, 30, 30)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jLabel4)
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(317, 317, 317)
-                        .addComponent(JBorrar)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel_Usuario)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTF_Busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_buscador)
+                    .addComponent(jL_Buscar)
+                    .addComponent(jL_mostarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRB_Autor)
+                    .addComponent(jRB_Titulo)
+                    .addComponent(jRB_Editorial)
+                    .addComponent(jRB_ISBN)
+                    .addComponent(jRB_Publicacion)
+                    .addComponent(jRB_Seccion))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel_Cerrar)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jBorrar1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jBorrar2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                                .addComponent(JBorrar)
-                                .addGap(63, 63, 63)
-                                .addComponent(jLabel4))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(jAñadir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1)))
-                        .addGap(47, 47, 47))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel_Cerrar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jAñadirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JEliminarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jNuevoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDevolverPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 19, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,31 +284,92 @@ public class VentanaAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel_CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_CerrarMouseClicked
-        MetodosGUI.cerrarSesion();
-        this.setVisible(false);
-    }//GEN-LAST:event_jLabel_CerrarMouseClicked
-
-    private void jAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirActionPerformed
+    private void jAñadirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirUsuarioActionPerformed
         this.setVisible(false);
         AñadirUsuario socio = new AñadirUsuario();
         socio.setVisible(true);
         
-    }//GEN-LAST:event_jAñadirActionPerformed
+    }//GEN-LAST:event_jAñadirUsuarioActionPerformed
 
-    private void JBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBorrarActionPerformed
+    private void JEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JEliminarUsuarioActionPerformed
         this.setVisible(false);
         EliminarUsuario socio = new EliminarUsuario();
         socio.setVisible(true);
-    }//GEN-LAST:event_JBorrarActionPerformed
+    }//GEN-LAST:event_JEliminarUsuarioActionPerformed
 
-    private void jBorrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrar1ActionPerformed
+    private void jNuevoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNuevoPrestamoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jBorrar1ActionPerformed
+    }//GEN-LAST:event_jNuevoPrestamoActionPerformed
 
-    private void jBorrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrar2ActionPerformed
+    private void jDevolverPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDevolverPrestamoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jBorrar2ActionPerformed
+    }//GEN-LAST:event_jDevolverPrestamoActionPerformed
+
+    private void jL_BuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jL_BuscarMouseClicked
+        if (jTF_Busqueda.getText().equalsIgnoreCase("")){
+            Biblioteca.mostrarMensaje("No se ha introducido ningun criterio de busqueda.");
+        }else{
+            String filtro = "";
+            int count = 0;
+            if (jRB_Autor.isSelected()){
+                filtro="autor";
+                count+=1;
+            }
+            if (jRB_Titulo.isSelected()){
+                filtro="titulo";
+                count+=1;
+            }
+            if (jRB_Editorial.isSelected()){
+                filtro="editorial";
+                count+=1;
+            }
+            if (jRB_ISBN.isSelected()){
+                filtro="isbn";
+                count+=1;
+            }
+            if(jRB_Publicacion.isSelected()){
+                filtro="publicacion";
+                count+=1;
+            }
+            if(jRB_Seccion.isSelected()){
+                filtro="seccion";
+                count+=1;
+            }
+            if (count>1){
+                Biblioteca.mostrarMensaje("A seleccionado mas de un filtro.\nPor favor seleccione un filtro por busqueda");
+            }else{
+                for (int i=0; i<tabla.getRowCount();i++){
+                    tabla.removeRow(i);
+                    i-=1;
+                }
+                ArrayList libros = MetodosGUI.busqueda(jTF_Busqueda.getText(),filtro);
+                if (!libros.isEmpty()){
+                    jTable_MostrarLibros.setModel(MetodosGUI.mostrarLibros(libros));
+                    TableColumn columna =  jTable_MostrarLibros.getColumnModel().getColumn(0);
+                    columna.setMaxWidth(0);
+                    columna.setMinWidth(0);
+                    columna.setPreferredWidth(0);
+                    jTable_MostrarLibros.doLayout();
+                }else{
+                    Biblioteca.mostrarMensaje("No se han encontrado coincidencias");
+                }
+            }
+        }
+    }//GEN-LAST:event_jL_BuscarMouseClicked
+
+    private void jL_mostarFiltrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jL_mostarFiltrosMouseClicked
+        jRB_Autor.setVisible(true);
+        jRB_Editorial.setVisible(true);
+        jRB_ISBN.setVisible(true);
+        jRB_Publicacion.setVisible(true);
+        jRB_Seccion.setVisible(true);
+        jRB_Titulo.setVisible(true);
+    }//GEN-LAST:event_jL_mostarFiltrosMouseClicked
+
+    private void jLabel_CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_CerrarMouseClicked
+        MetodosGUI.cerrarSesion();
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel_CerrarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -237,14 +407,25 @@ public class VentanaAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton JBorrar;
-    private javax.swing.JButton jAñadir;
-    private javax.swing.JButton jBorrar1;
-    private javax.swing.JButton jBorrar2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton JEliminarUsuario;
+    private javax.swing.JButton jAñadirUsuario;
+    private javax.swing.JButton jDevolverPrestamo;
+    private javax.swing.JLabel jL_Buscar;
+    private javax.swing.JLabel jL_mostarFiltros;
     private javax.swing.JLabel jLabel_Cerrar;
     public static javax.swing.JLabel jLabel_Usuario;
+    private javax.swing.JLabel jLabel_buscador;
+    private javax.swing.JButton jNuevoPrestamo;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRB_Autor;
+    private javax.swing.JRadioButton jRB_Editorial;
+    private javax.swing.JRadioButton jRB_ISBN;
+    private javax.swing.JRadioButton jRB_Publicacion;
+    private javax.swing.JRadioButton jRB_Seccion;
+    private javax.swing.JRadioButton jRB_Titulo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTF_Busqueda;
+    private javax.swing.JTable jTable_MostrarLibros;
     // End of variables declaration//GEN-END:variables
 }
