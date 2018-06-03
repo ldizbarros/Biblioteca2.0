@@ -1,6 +1,7 @@
 package bilbioteca2.datos;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -166,7 +167,7 @@ public class ConexionBD {
             result1 = st.executeQuery();
             while (result1.next()) {
                 int ejemplares = ejemplaresDisponibles(result1.getInt("codLibro"));
-                Libro nuevoLibro = new Libro(result1.getString("titulo"),result1.getString("autor"),
+                Libro nuevoLibro = new Libro(result1.getInt("codLibro"),result1.getString("titulo"),result1.getString("autor"),
                         result1.getString("editorial"),result1.getString("isbn"),result1.getString("añoPublicacion"),
                         result1.getString("seccion"),ejemplares);
                 resultadosBusqueda.add(nuevoLibro);
@@ -190,7 +191,7 @@ public class ConexionBD {
                     + "libros on libros.codLibro=ejemplares.codLibro where devuelto=0 and prestamos.codUsuario="+codUsuario);
             result1 = st.executeQuery();
             while (result1.next()) {
-                Prestamos nuevoPrestamo = new Prestamos(result1.getInt(codUsuario),result1.getString("titulo"),result1.getString("fechaInicio"),result1.getString("fechaFin")
+                Prestamos nuevoPrestamo = new Prestamos(result1.getInt("codPrestamo"),codUsuario,result1.getString("titulo"),result1.getString("fechaInicio"),result1.getString("fechaFin")
                 ,result1.getInt("aumento"));
                 prestamosUsuario.add(nuevoPrestamo);
             }
@@ -202,5 +203,66 @@ public class ConexionBD {
         }
         cerrarBD();
         return prestamosUsuario;
+    }
+    
+    public static String [] infoLibro(int codLibro){
+        String [] libro = new String [7];
+        conectarBD();
+        ResultSet result = null;
+        try {
+            PreparedStatement st = connect.prepareStatement("select * from libros inner join autores on libros.codAutor=autores.codAutor inner join secciones "
+                    + "on libro.codSeccion=secciones.codSeccion where codLibro="+codLibro);
+            result = st.executeQuery();
+            if (result.next()) {
+                libro [0] = result.getString("titulo");
+                libro [1] = result.getString("autor");
+                libro [2] = result.getString("seccion");
+                libro [3] = result.getString("zona");
+                libro [4] = result.getString("argumento");
+                libro [5] = result.getString("numEjemplares");
+                libro [6] = result.getString(String.valueOf(ejemplaresDisponibles(codLibro)));
+            }
+        } catch(NullPointerException e) {
+             Biblioteca.mostrarMensaje("No se han encontrado coincidencias.");
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        cerrarBD();
+        return libro;
+    }
+    
+    public static void aumentarPrestamo(int codPrestamo){
+        //cerrarBD();
+        conectarBD();   
+        int aumento=0,aumentos=0;
+        String fecha="";
+        ResultSet result = null;
+        try {
+            PreparedStatement st1 = connect.prepareStatement("select fechaFin,aumento from prestamos where codPrestamo="+codPrestamo);
+            result = st1.executeQuery();
+            if (result.next()) {
+                fecha= result.getString("fechaFin");
+                aumento = result.getInt("aumento");
+               
+            }
+            String [] dias =  fecha.split("/");
+            int dia = Integer.parseInt(dias[0]);
+            int mes = Integer.parseInt(dias[1]);
+            int año = Integer.parseInt(dias[2]);
+            LocalDate fechaFin = LocalDate.of(año, mes, dia);
+            LocalDate nueva = fechaFin.plusDays(15);
+            String nuevaFecha = nueva.getDayOfMonth()+"/"+nueva.getMonthValue()+"/"+nueva.getYear();
+            if (aumento==2){
+                aumentos = aumento;
+            }else{
+                aumentos = aumento+1;
+            }
+            PreparedStatement st2 = connect.prepareStatement("UPDATE Prestamos SET fechaFin='"+nuevaFecha+"' , aumento = "+aumentos+"   where codPrestamo="+codPrestamo);
+            st2.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        cerrarBD();
     }
 }

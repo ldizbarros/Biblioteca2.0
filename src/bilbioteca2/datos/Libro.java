@@ -1,6 +1,7 @@
 package bilbioteca2.datos;
 
 public class Libro {
+    private int codigo;
     private String titulo;
     private String autor;
     private String editorial;
@@ -12,7 +13,8 @@ public class Libro {
     public Libro() {
     }
 
-    public Libro(String titulo, String autor, String editorial, String isbn, String añoPublicacion, String seccion, int ejemplaresDisponibles) {
+    public Libro(int codigo, String titulo, String autor, String editorial, String isbn, String añoPublicacion, String seccion, int ejemplaresDisponibles) {
+        this.codigo = codigo;
         this.titulo = titulo;
         this.autor = autor;
         this.editorial = editorial;
@@ -20,6 +22,10 @@ public class Libro {
         this.añoPublicacion = añoPublicacion;
         this.seccion = seccion;
         this.ejemplaresDisponibles = ejemplaresDisponibles;
+    }
+
+    public int getCodigo() {
+        return codigo;
     }
 
     public String getTitulo() {
@@ -48,6 +54,10 @@ public class Libro {
 
     public int getEjemplaresDisponibles() {
         return ejemplaresDisponibles;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public void setTitulo(String titulo) {
@@ -80,6 +90,6 @@ public class Libro {
 
     @Override
     public String toString() {
-        return "Libro{" + "titulo=" + titulo + ", autor=" + autor + ", editorial=" + editorial + ", isbn=" + isbn + ", a\u00f1oPublicacion=" + añoPublicacion + ", seccion=" + seccion + ", ejemplaresDisponibles=" + ejemplaresDisponibles + '}';
-    }
+        return "Libro{" + "codigo=" + codigo + ", titulo=" + titulo + ", autor=" + autor + ", editorial=" + editorial + ", isbn=" + isbn + ", a\u00f1oPublicacion=" + añoPublicacion + ", seccion=" + seccion + ", ejemplaresDisponibles=" + ejemplaresDisponibles + '}';
+    } 
 }

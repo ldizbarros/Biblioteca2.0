@@ -1,6 +1,7 @@
 package bilbioteca2.datos;
 
 public class Prestamos {
+    private int codPrestamo;
     private int codUsuario;
     private String libro;
     private String fechaPrestamo;
@@ -10,7 +11,8 @@ public class Prestamos {
     public Prestamos() {
     }
 
-    public Prestamos(int codUsuario, String libro, String fechaPrestamo, String fechaDevolucion, int aumento) {
+    public Prestamos(int codPrestamo,int codUsuario, String libro, String fechaPrestamo, String fechaDevolucion, int aumento) {
+        this.codPrestamo =  codPrestamo;
         this.codUsuario =  codUsuario;
         this.libro = libro;
         this.fechaPrestamo = fechaPrestamo;
@@ -18,7 +20,11 @@ public class Prestamos {
         this.aumento = aumento;
     }
 
-    public int getcodUsuario() {
+    public int getCodPrestamo() {
+        return codPrestamo;
+    }
+
+    public int getCodUsuario() {
         return codUsuario;
     }
 
@@ -38,7 +44,11 @@ public class Prestamos {
         return aumento;
     }
 
-    public void setcodUsuario(int codUsuario) {
+    public void setCodPrestamo(int codPrestamo) {
+        this.codPrestamo = codPrestamo;
+    }
+
+    public void setCodUsuario(int codUsuario) {
         this.codUsuario = codUsuario;
     }
 

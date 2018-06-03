@@ -48,6 +48,7 @@ public class MetodosGUI {
             return null;
         }else{
             DefaultTableModel tabla = new DefaultTableModel();
+            tabla.addColumn("CODIGO");
             tabla.addColumn("TITULO");
             tabla.addColumn("AUTOR");
             tabla.addColumn("EDITORIAL");
@@ -58,14 +59,15 @@ public class MetodosGUI {
             Iterator it = libros.iterator();
             while(it.hasNext()){
                 Libro libro = (Libro) it.next();
-                String[] fila = new String[7];
-                fila[0] = libro.getTitulo();
-                fila[1] = libro.getAutor();
-                fila[2] = libro.getEditorial();
-                fila[3] = libro.getIsbn();
-                fila[4] = libro.getAñoPublicacion();
-                fila[5] = libro.getSeccion();
-                fila[6] = String.valueOf(libro.getEjemplaresDisponibles());
+                String[] fila = new String[8];
+                fila[0] = String.valueOf(libro.getCodigo());
+                fila[1] = libro.getTitulo();
+                fila[2] = libro.getAutor();
+                fila[3] = libro.getEditorial();
+                fila[4] = libro.getIsbn();
+                fila[5] = libro.getAñoPublicacion();
+                fila[6] = libro.getSeccion();
+                fila[7] = String.valueOf(libro.getEjemplaresDisponibles());
                 tabla.addRow(fila);
             }
             return tabla;
@@ -86,23 +88,42 @@ public class MetodosGUI {
             return null;
         }else{
             DefaultTableModel tabla = new DefaultTableModel();
+            tabla.addColumn("CODIGO");
             tabla.addColumn("TITULO");
             tabla.addColumn("FECHA DEVOLUCION");
             tabla.addColumn("AUMENTO");
             Iterator it = prestamos.iterator();
             while(it.hasNext()){
                 Prestamos prestamo = (Prestamos) it.next();
-                String[] fila = new String[7];
-                fila[0] = prestamo.getLibro();
-                fila[1] = prestamo.getFechaDevolucion();
+                String[] fila = new String[4];
+                fila[0] = String.valueOf(prestamo.getCodPrestamo());
+                fila[1] = prestamo.getLibro();
+                fila[2] = prestamo.getFechaDevolucion();
                 if (prestamo.getAumento()==2){
-                    fila[2] = String.valueOf("Ya no tiene disponibles mas aumentos");
+                    fila[3] = String.valueOf("Ya no tiene disponibles mas aumentos");
                 }else{
-                    fila[2] = String.valueOf("Ha hecho "+prestamo.getAumento()+" aumentos");
+                    fila[3] = String.valueOf("Ha hecho "+prestamo.getAumento()+" aumento/s");
                 }
                 tabla.addRow(fila);
             }
             return tabla;
         }
+    }
+    
+    public static void mostrarLibro(String codLibro){
+        System.out.println(codLibro);
+        FichaLibro.jL_codLibro.setText(codLibro);
+//        FichaLibro mostrarFicha = new FichaLibro();
+//        mostrarFicha.setVisible(true);
+    }
+    
+    public static String [] infoLibro(int codLibro){
+        String [] libro = ConexionBD.infoLibro(codLibro);
+        return libro;
+    }
+    
+    public static void aumetarPrestamo(String codPrestamo){
+        int codigo= Integer.parseInt(codPrestamo);
+        ConexionBD.aumentarPrestamo(codigo);
     }
 }
