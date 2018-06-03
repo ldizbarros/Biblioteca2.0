@@ -173,7 +173,7 @@ public class ConexionBD {
         return resultadosBusqueda;
     }
 
-    public static void añadirSocio(Usuario usuario) {
+    public static void añadirSocio(Usuario usuario){
 
         int codUsuario = calcularCodigos("usuarios");
         conectarBD();
@@ -193,8 +193,8 @@ public class ConexionBD {
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
-        }
         cerrarBD();
+        }
     }
  
     public static void eliminarSocio(String dni) {
@@ -207,5 +207,22 @@ public class ConexionBD {
             System.out.println(e.getMessage());
         }
         cerrarBD();
+    }
+    public static ArrayList<String>comprobarDni(){
+        conectarBD();
+        ArrayList<String>dnis = new ArrayList();
+        ResultSet result = null;
+        try {
+            PreparedStatement st = connect.prepareStatement("select dni from usuarios");
+            result = st.executeQuery();
+            if (result.next()) {
+                String dni = result.getString("dni");
+                dnis.add(dni);
+            }
+        } catch (SQLException ex) {
+             System.out.println(ex.getMessage());
+        }
+        cerrarBD();
+        return dnis;
     }
 }

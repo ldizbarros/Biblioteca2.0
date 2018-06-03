@@ -93,10 +93,13 @@ public class MetodosGUI {
     }
 
     public static void eliminarS(String dni) {
+        ArrayList dnis = ConexionBD.comprobarDni();
         if (dni.equalsIgnoreCase("")) {
             Biblioteca.mostrarMensaje("Debe intoducir un DNI\nInténtelo de nuevo");
+        }else if(!dnis.contains(dni)){ 
+            Biblioteca.mostrarMensaje("El DNI introducido no coincide con el de ningún usuario\nInténtelo de nuevo");
         } else {
-            ConexionBD.eliminarSocio(dni);
+             ConexionBD.eliminarSocio(dni);
         }
     }
 }
