@@ -25,6 +25,12 @@ public class VentanaAdmin extends javax.swing.JFrame {
     public VentanaAdmin() {
         initComponents();
         this.setLocationRelativeTo(this);
+        jRB_Autor.setVisible(false);
+        jRB_Editorial.setVisible(false);
+        jRB_ISBN.setVisible(false);
+        jRB_Publicacion.setVisible(false);
+        jRB_Seccion.setVisible(false);
+        jRB_Titulo.setVisible(false);
         jNuevoPrestamo.setText("<html><p>Nuevo</p><p>Prestamo</p></html>");
         JEliminarUsuario.setText("<html><p>Eliminar</p><p>Usuario</p></html>");
         jAñadirUsuario.setText("<html><p>Nuevo</p><p>Usuario</p></html>");
@@ -255,7 +261,6 @@ public class VentanaAdmin extends javax.swing.JFrame {
                     .addComponent(jRB_Seccion))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
