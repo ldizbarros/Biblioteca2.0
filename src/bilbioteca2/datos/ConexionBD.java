@@ -94,6 +94,8 @@ public class ConexionBD {
                 st = connect.prepareStatement("select max(codAutor) as codigo from autores");
             } else if (tabla.equalsIgnoreCase("usuarios")) {
                 st = connect.prepareStatement("select max(codUsuario) as codigo from usuarios");
+            }else if (tabla.equalsIgnoreCase("prestamos")) {
+                st = connect.prepareStatement("select max(codPrestamo) as codigo from prestamos");
             }
             result = st.executeQuery();
             if (result.next()) {
@@ -314,4 +316,44 @@ public class ConexionBD {
         cerrarBD();
         return dnis;
     }
+//    public static void añadirPrestamo(Prestamos prestamo){
+//        
+//         int codPrestamo = calcularCodigos("prestamos");
+//        conectarBD();
+//
+//        try {
+//            PreparedStatement st = connect.prepareStatement("insert into prestamos (codPrestamo, codUsuario, libro, fechaPrestamo,fechaDevolucion, aumento) values (?,?,?,?,?,?)");
+//            st.setInt(1, codPrestamo);
+//           // st.setInt(2, codUsuario);
+//            st.setString(3, prestamo.getLibro());
+//            st.setString(4, prestamo.getFechaPrestamo());
+//            st.setString(5, prestamo.getFechaDevolucion());
+//            st.setInt(6, prestamo.getAumento());
+//            st.execute();
+//
+//        } catch (SQLException ex) {
+//            System.err.println(ex.getMessage());
+//        cerrarBD();
+//        }    
+//    }
+//    public static ArrayList<String> visualizarLibros(){
+//        
+//        conectarBD();
+//        ArrayList<String> titulos = new ArrayList();
+//        ResultSet result = null;
+//        try {
+//            PreparedStatement st = connect.prepareStatement("SELECT * FROM Alumnos");
+//            result = st.executeQuery();
+//            while (result.next()) {
+//                Alumno alu = new Alumno(result.getString("DNI"), result.getString("Nombre"),
+//                        result.getString("Apellidos"), result.getString("Direccion"), result.getString("Telefono"));
+//                alumnos.add(alu);
+//            }
+//        } catch (SQLException ex) {
+//            System.err.println(ex.getMessage());
+//        }
+//        cerrarBD();
+//        return titulos;
+//    }
 }
+

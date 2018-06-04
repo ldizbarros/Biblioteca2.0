@@ -197,11 +197,7 @@ public class AñadirPrestamo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOkActionPerformed
-        MetodosGUI.añadirS(jDni.getText(),jNombre.getText(),jApellidos.getText(),
-            jTelefono.getText(),jCorreo.getText(),jLogin.getText(),jContraseña.getText(),jAdmin.isSelected());
-        VentanaAdmin adm = new VentanaAdmin();
-        this.setVisible(false);
-        adm.setVisible(true);
+        
 
     }//GEN-LAST:event_jOkActionPerformed
 
