@@ -114,9 +114,7 @@ public class ConexionBD {
         conectarBD();
         ArrayList<Libro> resultadosBusqueda = new ArrayList();
         ResultSet result1 = null;
-
         try {
-
             PreparedStatement st = null;
             if (filtro.equalsIgnoreCase("")) {
                 st = connect.prepareStatement("SELECT distinct libros.codLibro, titulo,autor,editorial,isbn,añoPublicacion,seccion"
@@ -308,8 +306,8 @@ public class ConexionBD {
     
     public static void guardarComentario(int codEjemplar, String comentarios){
         cerrarBD();
-        conectarBD();   
-        try {
+        conectarBD();
+        try {   
             PreparedStatement st = connect.prepareStatement("UPDATE ejemplares SET comentarios='"+comentarios+"'  where codEjemplar="+codEjemplar);
             st.executeUpdate();
         }catch (SQLException ex) {
@@ -319,10 +317,10 @@ public class ConexionBD {
     }
     
     public static void borrarEjemplar(int codEjemplar){
-        conectarBD();  
         ResultSet result = null;
         int codLibro=0,numEjemplares=0;
         try {
+            conectarBD();
             PreparedStatement st = connect.prepareStatement("select codLibro,numEjemplares from libros  where codLibro=(select codLibro from ejemplares where codEjemplar="+codEjemplar+")");
             result = st.executeQuery();
             if (result.next()) {
@@ -332,15 +330,19 @@ public class ConexionBD {
         }catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
+        cerrarBD();
         try {
+            conectarBD();
             PreparedStatement st2 = connect.prepareStatement("UPDATE libros SET numEjemplares="+(numEjemplares-1)+" where codLibro="+codLibro);
-            st2.execute();
+            st2.executeUpdate();
         }catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
+        cerrarBD();
         try{
+            conectarBD();
             PreparedStatement st3 = connect.prepareStatement("DELETE FROM ejemplares WHERE codEjemplar="+codEjemplar);
-            st3.execute();
+            st3.executeUpdate();
         }catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
