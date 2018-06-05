@@ -263,6 +263,89 @@ public class ConexionBD {
         }
         cerrarBD();
     }
+    
+    public static ArrayList <Ejemplares> cargarEjemplares(int codLibro){
+        conectarBD();
+        ArrayList <Ejemplares> ejemplares = new ArrayList();
+        ResultSet result1 = null;
+        try {
+            PreparedStatement st = connect.prepareStatement("select * from ejemplares where codLibro="+codLibro);
+            result1 = st.executeQuery();
+            while (result1.next()) {
+                Ejemplares nuevoEjemplar = new Ejemplares(result1.getInt("codEjemplar"),result1.getString("isbn"),result1.getString("editorial"),result1.getString("añoPublicacion")
+                ,result1.getString("comentarios"),result1.getBoolean("prestado"));
+                ejemplares.add(nuevoEjemplar);
+            }
+        } catch(NullPointerException e) {
+             Biblioteca.mostrarMensaje("No se han encontrado ejemplares de el libro seleccionado");
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        cerrarBD();
+        return ejemplares;
+    }
+    
+    public static String cargarComentario(int codEjemplar){
+        conectarBD();
+        ResultSet result = null;
+        String comentario = "";
+        try {
+            PreparedStatement st = connect.prepareStatement("select comentarios from ejemplares where codEjemplar="+codEjemplar);
+            result = st.executeQuery();
+            if (result.next()) {
+                comentario = result.getString("comentarios");
+            }
+        } catch(NullPointerException e) {
+             Biblioteca.mostrarMensaje("No se han encontrado ejemplares de el libro seleccionado");
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        cerrarBD();
+        return comentario;
+    }
+    
+    public static void guardarComentario(int codEjemplar, String comentarios){
+        cerrarBD();
+        conectarBD();   
+        try {
+            PreparedStatement st = connect.prepareStatement("UPDATE ejemplares SET comentarios='"+comentarios+"'  where codEjemplar="+codEjemplar);
+            st.executeUpdate();
+        }catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        cerrarBD();
+    }
+    
+    public static void borrarEjemplar(int codEjemplar){
+        conectarBD();  
+        ResultSet result = null;
+        int codLibro=0,numEjemplares=0;
+        try {
+            PreparedStatement st = connect.prepareStatement("select codLibro,numEjemplares from libros  where codLibro=(select codLibro from ejemplares where codEjemplar="+codEjemplar+")");
+            result = st.executeQuery();
+            if (result.next()) {
+                codLibro = result.getInt("codLibro");
+                numEjemplares=result.getInt("numEjemplares");
+            }
+        }catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        try {
+            PreparedStatement st2 = connect.prepareStatement("UPDATE libros SET numEjemplares="+(numEjemplares-1)+" where codLibro="+codLibro);
+            st2.execute();
+        }catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        try{
+            PreparedStatement st3 = connect.prepareStatement("DELETE FROM ejemplares WHERE codEjemplar="+codEjemplar);
+            st3.execute();
+        }catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        cerrarBD();
+    }
 
     public static void añadirSocio(Usuario usuario){
 

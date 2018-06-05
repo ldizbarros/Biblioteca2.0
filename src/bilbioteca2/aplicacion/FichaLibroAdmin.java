@@ -6,31 +6,53 @@
 package bilbioteca2.aplicacion;
 
 import bilbioteca2.metodos.MetodosGUI;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import libreria.Biblioteca;
 
 /**
  *
  * @author laudi
  */
-public class FichaLibro extends javax.swing.JFrame {
+public class FichaLibroAdmin extends javax.swing.JFrame {
 
     /**
      * Creates new form FichaLibro
      */
-    public FichaLibro(String codLibro) {
+    DefaultTableModel tabla = new DefaultTableModel();
+    
+    public FichaLibroAdmin(String codLibro) {
         initComponents();
         this.setLocationRelativeTo(this);
         String [] libro = MetodosGUI.infoLibro(Integer.parseInt(codLibro));
-      
-        jTextArea_argumento.setLineWrap(true);
-        jTextArea_argumento.setWrapStyleWord(true);
         
         jLabel_Titulo.setText(libro[0]);
         jLabel_Autor.setText(libro[1]);
         jLabel_Seccion.setText(libro[2]);
         jLabel_zona.setText(libro[3]);
-        jTextArea_argumento.setText(libro[4]);
         jLabel_numEjemplares.setText(libro[5]);
         jLabel_EjemplaresDis.setText(libro[6]);
+        jB_comentarios.setText("<html><p style='text-align:center;'>Añadir/Modificar</p><p style='text-align:center;'>Comentario</p></html>");
+        jB_prestamo.setText("<html><p>Nuevo</p><p>Prestamo</p></html>");
+        jB_borrarEjemplar.setText("<html><p>Borrar</p><p>Ejemplar</p></html>");
+        
+        
+        for (int i=0; i<tabla.getRowCount();i++){
+            tabla.removeRow(i);
+            i-=1;
+        }
+        ArrayList ejemplares = MetodosGUI.cargarEjemplares(Integer.parseInt(codLibro));
+        if (!ejemplares.isEmpty()){
+            jTable_ejemplares.setModel(MetodosGUI.mostrarEjemplares(ejemplares));
+            TableColumn columna =  jTable_ejemplares.getColumnModel().getColumn(0);
+            columna.setMaxWidth(0);
+            columna.setMinWidth(0);
+            columna.setPreferredWidth(0);
+            jTable_ejemplares.doLayout();
+        }else{
+            Biblioteca.mostrarMensaje("Se ha producido un error al cargar los ejemplares");
+        }
     }
 
     /**
@@ -43,7 +65,6 @@ public class FichaLibro extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel_Cerrar1 = new javax.swing.JLabel();
         jLabel_Titulo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel_Autor = new javax.swing.JLabel();
@@ -51,22 +72,19 @@ public class FichaLibro extends javax.swing.JFrame {
         jLabel_zona = new javax.swing.JLabel();
         jLabel_numEjemplares = new javax.swing.JLabel();
         jLabel_EjemplaresDis = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea_argumento = new javax.swing.JTextArea();
         jLabel_numEjemplares1 = new javax.swing.JLabel();
         jLabel_numEjemplares2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable_ejemplares = new javax.swing.JTable();
+        jB_comentarios = new javax.swing.JButton();
+        jB_prestamo = new javax.swing.JButton();
+        jB_borrarEjemplar = new javax.swing.JButton();
+        jLabel_Cerrar1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ficha Libro");
 
         jPanel1.setBackground(javax.swing.UIManager.getDefaults().getColor("activeCaption"));
-
-        jLabel_Cerrar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilbioteca2/aplicacion/iconos/close.png"))); // NOI18N
-        jLabel_Cerrar1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_Cerrar1MouseClicked(evt);
-            }
-        });
 
         jLabel_Titulo.setFont(new java.awt.Font("Berlin Sans FB", 0, 36)); // NOI18N
         jLabel_Titulo.setForeground(new java.awt.Color(255, 255, 255));
@@ -95,11 +113,6 @@ public class FichaLibro extends javax.swing.JFrame {
         jLabel_EjemplaresDis.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_EjemplaresDis.setText("n2");
 
-        jTextArea_argumento.setColumns(20);
-        jTextArea_argumento.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
-        jTextArea_argumento.setRows(5);
-        jScrollPane1.setViewportView(jTextArea_argumento);
-
         jLabel_numEjemplares1.setFont(new java.awt.Font("Berlin Sans FB", 0, 24)); // NOI18N
         jLabel_numEjemplares1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_numEjemplares1.setText("Ejemplares: ");
@@ -108,6 +121,50 @@ public class FichaLibro extends javax.swing.JFrame {
         jLabel_numEjemplares2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_numEjemplares2.setText("Ejemplares Disponibles: ");
 
+        jTable_ejemplares.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jTable_ejemplares.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ISBN", "EDITORIAL", "AÑO PUBLICACION", "COMETARIOS", "DISPONIBLE"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable_ejemplares);
+
+        jB_comentarios.setBackground(java.awt.SystemColor.controlHighlight);
+        jB_comentarios.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jB_comentarios.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
+        jB_comentarios.setText("comentarios");
+        jB_comentarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB_comentariosActionPerformed(evt);
+            }
+        });
+
+        jB_prestamo.setBackground(java.awt.SystemColor.controlHighlight);
+        jB_prestamo.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jB_prestamo.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
+        jB_prestamo.setText("prestamo");
+        jB_prestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB_prestamoActionPerformed(evt);
+            }
+        });
+
+        jB_borrarEjemplar.setBackground(java.awt.SystemColor.controlHighlight);
+        jB_borrarEjemplar.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jB_borrarEjemplar.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
+        jB_borrarEjemplar.setText("borrar ");
+        jB_borrarEjemplar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB_borrarEjemplarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -115,6 +172,11 @@ public class FichaLibro extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel_Seccion)
+                        .addGap(197, 197, 197)
+                        .addComponent(jLabel_zona)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -127,15 +189,18 @@ public class FichaLibro extends javax.swing.JFrame {
                                 .addComponent(jLabel_EjemplaresDis)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel_Seccion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel_zona)
-                        .addGap(157, 157, 157))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel_Autor))
-                        .addGap(0, 35, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(jB_comentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jB_borrarEjemplar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(jB_prestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,10 +219,22 @@ public class FichaLibro extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_numEjemplares2)
                     .addComponent(jLabel_EjemplaresDis))
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jB_comentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jB_prestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jB_borrarEjemplar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
+
+        jLabel_Cerrar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilbioteca2/aplicacion/iconos/close.png"))); // NOI18N
+        jLabel_Cerrar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_Cerrar1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -165,14 +242,12 @@ public class FichaLibro extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_Titulo)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel_Cerrar1)
-                .addGap(23, 23, 23))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel_Cerrar1)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel_Titulo)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,10 +255,10 @@ public class FichaLibro extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jLabel_Titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_Cerrar1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -194,7 +269,7 @@ public class FichaLibro extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -203,6 +278,24 @@ public class FichaLibro extends javax.swing.JFrame {
     private void jLabel_Cerrar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_Cerrar1MouseClicked
         this.setVisible(false);
     }//GEN-LAST:event_jLabel_Cerrar1MouseClicked
+
+    private void jB_comentariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_comentariosActionPerformed
+        String codEjemplar =  (String) jTable_ejemplares.getValueAt(jTable_ejemplares.getSelectedRow(), 0);
+        NuevoComentario nuevoComentario = new NuevoComentario(codEjemplar);
+        nuevoComentario.setVisible(true);
+    }//GEN-LAST:event_jB_comentariosActionPerformed
+
+    private void jB_prestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_prestamoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jB_prestamoActionPerformed
+
+    private void jB_borrarEjemplarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_borrarEjemplarActionPerformed
+        String codEjemplar =  (String) jTable_ejemplares.getValueAt(jTable_ejemplares.getSelectedRow(), 0);
+        int seguro = Biblioteca.comprobacion("¿Esta seguro de que desea borrar este ejemplar?");
+        if (seguro==0){
+            MetodosGUI.borrarEjemplar(codEjemplar);
+        } 
+    }//GEN-LAST:event_jB_borrarEjemplarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,14 +314,15 @@ public class FichaLibro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FichaLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FichaLibroAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FichaLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FichaLibroAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FichaLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FichaLibroAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FichaLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FichaLibroAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -240,6 +334,9 @@ public class FichaLibro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jB_borrarEjemplar;
+    private javax.swing.JButton jB_comentarios;
+    private javax.swing.JButton jB_prestamo;
     private javax.swing.JLabel jLabel_Autor;
     private javax.swing.JLabel jLabel_Cerrar1;
     private javax.swing.JLabel jLabel_EjemplaresDis;
@@ -251,7 +348,7 @@ public class FichaLibro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_zona;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea_argumento;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable_ejemplares;
     // End of variables declaration//GEN-END:variables
 }

@@ -83,7 +83,7 @@ public class MetodosGUI {
     } 
     
     public static DefaultTableModel mostrarPrestamos(ArrayList <Prestamos> prestamos){
-         if (prestamos.isEmpty()){
+        if (prestamos.isEmpty()){
             JOptionPane.showMessageDialog(null, "No tienes ningun prestamo sin devolver");
             return null;
         }else{
@@ -113,6 +113,61 @@ public class MetodosGUI {
     public static void mostrarLibro(String codLibro){
         FichaLibro mostrarFicha = new FichaLibro(codLibro);
         mostrarFicha.setVisible(true);    
+    }
+    
+    public static void mostrarLibroAdmin(String codLibro){
+        FichaLibroAdmin mostrarFicha = new FichaLibroAdmin(codLibro);
+        mostrarFicha.setVisible(true);    
+    }
+    
+    public static ArrayList <Ejemplares> cargarEjemplares(int codLibro){
+        return ConexionBD.cargarEjemplares(codLibro);
+    }
+    
+    public static DefaultTableModel mostrarEjemplares(ArrayList <Ejemplares> ejemplares){
+        if (ejemplares.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Se ha producido un error al cargar los ejemplares de este libro");
+            return null;
+        }else{
+            DefaultTableModel tabla = new DefaultTableModel();
+            tabla.addColumn("CODIGO");
+            tabla.addColumn("ISBN");
+            tabla.addColumn("EDITORIAL");
+            tabla.addColumn("AÑO PUBLICACION");
+            tabla.addColumn("COMENTARIOS");
+            tabla.addColumn("DISPONIBLE");
+            Iterator it = ejemplares.iterator();
+            while(it.hasNext()){
+                Ejemplares ejemplar = (Ejemplares) it.next();
+                String[] fila = new String[6];
+                fila[0] = String.valueOf(ejemplar.getCodigo());
+                fila[1] = ejemplar.getIsbn();
+                fila[2] = ejemplar.getEditorial();
+                fila[3] = ejemplar.getAñoPublicacion();
+                fila[4] = ejemplar.getComentarios();
+                if (ejemplar.isPrestado()){
+                    fila[5] = String.valueOf("No Disponible");
+                }else{
+                    fila[5] = String.valueOf("Disponible");
+                }
+                tabla.addRow(fila);
+            }
+            return tabla;
+        }
+    }
+   
+    public static String cargarComentario(String codEjemplar){
+        return ConexionBD.cargarComentario(Integer.parseInt(codEjemplar));
+    }
+    
+    public static void guardarComentario(String codEjemplar,String comentario){
+        ConexionBD.guardarComentario(Integer.parseInt(codEjemplar),comentario);
+        Biblioteca.mostrarMensaje("El comentario se a guardado con exito");
+    }
+    
+    public static void borrarEjemplar(String codEjemplar){
+        ConexionBD.borrarEjemplar(Integer.parseInt(codEjemplar));
+        Biblioteca.mostrarMensaje("El ejemplar se ha borrado con exito");
     }
     
     public static String [] infoLibro(int codLibro){
