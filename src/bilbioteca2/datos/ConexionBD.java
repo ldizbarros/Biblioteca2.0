@@ -318,7 +318,8 @@ public class ConexionBD {
         }
     }
 
-    public static void añadirSocio(Usuario usuario) {
+    public static boolean añadirSocio(Usuario usuario) {
+        boolean correcto;
         int codUsuario = calcularCodigos("usuarios");
         try {
             PreparedStatement st = connect.prepareStatement("insert into usuarios (codUsuario, dni, nombre, apellidos,telefono, correo, login, password, admin) values (?,?,?,?,?,?,?,?,?)");
@@ -332,9 +333,18 @@ public class ConexionBD {
             st.setString(8, usuario.getPassword());
             st.setBoolean(9, usuario.isAdministrador());
             st.execute();
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
+            correcto=true;
+        } 
+        catch (SQLException ex) {
+            if (ex.getErrorCode()==19){
+                Biblioteca.mostrarMensaje("El dni/login introducido ya exite en la base de datos");
+                correcto=false;
+            } else {
+                System.err.println(ex.getMessage());
+                correcto=false;
+            }
         }
+        return correcto;
     }
 
     public static void eliminarSocio(String dni) {
@@ -353,7 +363,7 @@ public class ConexionBD {
         try {
             PreparedStatement st = connect.prepareStatement("select dni from usuarios");
             result = st.executeQuery();
-            if (result.next()) {
+            while (result.next()) {
                 String dni = result.getString("dni");
                 dnis.add(dni);
             }

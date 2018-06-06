@@ -90,7 +90,8 @@ public class Usuario {
     public void setAdministrador(boolean administrador) {
         this.administrador = administrador;
     }
-   public static boolean validar(String dni){
+   
+    public static boolean validar(String dni){
 
         boolean valido = true;
 
