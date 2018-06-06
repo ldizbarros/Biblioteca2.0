@@ -33,7 +33,6 @@ public class ConexionBD {
     }
 
     public static String[] login(String usuario, String contraseña) {
-        //conectarBD();
         String[] resultado = new String[3];
         ResultSet result = null;
         try {
@@ -58,13 +57,11 @@ public class ConexionBD {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        //cerrarBD();
         return resultado;
     }
 
     public static int ejemplaresDisponibles(int codLibro) {
         int ejemplares = 0;
-        //conectarBD();
         ResultSet result = null;
         try {
             PreparedStatement st = connect.prepareStatement("select count() as ejemplares from ejemplares where codLibro=" + codLibro + " and prestado=0");
@@ -77,13 +74,11 @@ public class ConexionBD {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        //cerrarBD();
         return ejemplares;
     }
 
     public static int calcularCodigos(String tabla) {
         int codigo = 0;
-        //conectarBD();
         ResultSet result = null;
         try {
             PreparedStatement st = null;
@@ -107,12 +102,10 @@ public class ConexionBD {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        //cerrarBD();
         return codigo;
     }
 
     public static ArrayList<Libro> busqueda(String busqueda, String filtro) {
-        //conectarBD();
         ArrayList<Libro> resultadosBusqueda = new ArrayList();
         ResultSet result1 = null;
         try {
@@ -174,12 +167,10 @@ public class ConexionBD {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        //cerrarBD();
         return resultadosBusqueda;
     }
 
     public static ArrayList<Prestamos> prestamosUsuarios(int codUsuario) {
-        //conectarBD();
         ArrayList<Prestamos> prestamosUsuario = new ArrayList();
         ResultSet result1 = null;
         try {
@@ -196,13 +187,11 @@ public class ConexionBD {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        //cerrarBD();
         return prestamosUsuario;
     }
 
     public static String[] infoLibro(int codLibro) {
         String[] libro = new String[7];
-        //conectarBD();
         ResultSet result = null;
         try {
             PreparedStatement st = connect.prepareStatement("select * from libros inner join autores on libros.codAutor=autores.codAutor inner join secciones "
@@ -223,13 +212,10 @@ public class ConexionBD {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        //cerrarBD();
         return libro;
     }
 
     public static void aumentarPrestamo(int codPrestamo) {
-        //cerrarBD();
-        //conectarBD();
         int aumento = 0, aumentos = 0;
         String fecha = "";
         ResultSet result = null;
@@ -258,11 +244,9 @@ public class ConexionBD {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        //cerrarBD();
     }
 
     public static ArrayList<Ejemplares> cargarEjemplares(int codLibro) {
-        //conectarBD();
         ArrayList<Ejemplares> ejemplares = new ArrayList();
         ResultSet result1 = null;
         try {
@@ -278,12 +262,10 @@ public class ConexionBD {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        //cerrarBD();
         return ejemplares;
     }
 
     public static String cargarComentario(int codEjemplar) {
-        //conectarBD();
         ResultSet result = null;
         String comentario = "";
         try {
@@ -297,27 +279,21 @@ public class ConexionBD {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        //cerrarBD();
         return comentario;
     }
 
     public static void guardarComentario(int codEjemplar, String comentarios) {
-        //cerrarBD();
-        //conectarBD();
         try {
             PreparedStatement st = connect.prepareStatement("UPDATE ejemplares SET comentarios='" + comentarios + "'  where codEjemplar=" + codEjemplar);
             st.executeUpdate();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        //cerrarBD();
     }
 
     public static void borrarEjemplar(int codEjemplar) {
-        //cerrarBD();
         ResultSet result = null;
         int codLibro = 0, numEjemplares = 0;
-        //conectarBD();
         try {   
             PreparedStatement st = connect.prepareStatement("select codLibro,numEjemplares from libros  where codLibro=(select codLibro from ejemplares where codEjemplar=" + codEjemplar + ")");
             result = st.executeQuery();
@@ -328,30 +304,22 @@ public class ConexionBD {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        //cerrarBD();
-        //conectarBD();
         try {
             PreparedStatement st2 = connect.prepareStatement("UPDATE libros SET numEjemplares=" + (numEjemplares - 1) + " where codLibro=" + codLibro);
             st2.executeUpdate();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        //cerrarBD();
-        //conectarBD();
         try {
             PreparedStatement st3 = connect.prepareStatement("DELETE FROM ejemplares WHERE codEjemplar=" + codEjemplar);
             st3.executeUpdate();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        //cerrarBD();
     }
 
     public static void añadirSocio(Usuario usuario) {
-
         int codUsuario = calcularCodigos("usuarios");
-        conectarBD();
-
         try {
             PreparedStatement st = connect.prepareStatement("insert into usuarios (codUsuario, dni, nombre, apellidos,telefono, correo, login, password, admin) values (?,?,?,?,?,?,?,?,?)");
             st.setInt(1, codUsuario);
@@ -364,15 +332,12 @@ public class ConexionBD {
             st.setString(8, usuario.getPassword());
             st.setBoolean(9, usuario.isAdministrador());
             st.execute();
-
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
-            cerrarBD();
         }
     }
 
     public static void eliminarSocio(String dni) {
-        conectarBD();
         try {
             PreparedStatement st = connect.prepareStatement("DELETE FROM usuarios WHERE dni=?");
             st.setString(1, dni);
@@ -380,11 +345,9 @@ public class ConexionBD {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        cerrarBD();
     }
 
     public static ArrayList<String> comprobarDni() {
-        conectarBD();
         ArrayList<String> dnis = new ArrayList();
         ResultSet result = null;
         try {
@@ -397,14 +360,12 @@ public class ConexionBD {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        cerrarBD();
         return dnis;
     }
 
     public static void añadirPrestamo(Prestamos prestamo) {
 
         int codPrestamo = calcularCodigos("prestamos");
-        conectarBD();
 
         try {
             PreparedStatement st = connect.prepareStatement("insert into prestamos (codPrestamo,codEjemplar,codUsuario, fechaInicio,fechaFin,devuelto,aumento) values (?,?,?,?,?,?,?)");
@@ -420,13 +381,11 @@ public class ConexionBD {
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
-            cerrarBD();
         }
     }
 
     public static ArrayList<String> visualizarLibros() {
 
-        conectarBD();
         ArrayList<String> titulos = new ArrayList();
         ResultSet result = null;
         try {
@@ -441,14 +400,11 @@ public class ConexionBD {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        cerrarBD();
         return titulos;
 
     }
 
     public static ArrayList<String> visualizarDnis() {
-
-        conectarBD();
         ArrayList<String> listadni = new ArrayList();
         ResultSet result = null;
         try {
@@ -462,12 +418,10 @@ public class ConexionBD {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        cerrarBD();
         return listadni;
     }
 
     public static void devolverPrestamo() {
-        conectarBD();
         try {
             PreparedStatement st = connect.prepareStatement("");
             //st.setString(1, );
@@ -475,7 +429,5 @@ public class ConexionBD {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-        cerrarBD();
     }
 }
