@@ -19,6 +19,7 @@ public class MetodosGUI {
             PaginaPrincipal main = new PaginaPrincipal();
             main.setVisible(true);
         } else {
+            ConexionBD.conectarBD();
             String[] result = ConexionBD.login(login, contraseña);
             if (result[0] == null) {
                 Biblioteca.mostrarMensaje("El usuario o la contraseña introducidos no son correctos.");
@@ -43,6 +44,7 @@ public class MetodosGUI {
     public static void cerrarSesion() {
         PaginaPrincipal main = new PaginaPrincipal();
         main.setVisible(true);
+        ConexionBD.cerrarBD();
     }
 
     public static DefaultTableModel mostrarLibros(ArrayList<Libro> libros) {
