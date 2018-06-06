@@ -5,6 +5,11 @@
  */
 package bilbioteca2.aplicacion;
 
+import static bilbioteca2.aplicacion.VentanaUsuario.jLabel_codUsuario;
+import bilbioteca2.metodos.MetodosGUI;
+import java.util.ArrayList;
+import javax.swing.table.TableColumn;
+
 /**
  *
  * @author sphynx
@@ -169,7 +174,13 @@ public class DevolverPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel_CerrarMouseClicked
 
     private void jOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOkActionPerformed
-
+        ArrayList prestamos = MetodosGUI.verPrestamos(Integer.parseInt(jLabel_codUsuario.getText()));
+        jTable_Prestamos.setModel(MetodosGUI.mostrarPrestamos(prestamos));
+        TableColumn columna =  jTable_Prestamos.getColumnModel().getColumn(0);
+        columna.setMaxWidth(0);
+        columna.setMinWidth(0);
+        columna.setPreferredWidth(0);
+        jTable_Prestamos.doLayout(); 
     }//GEN-LAST:event_jOkActionPerformed
 
     /**

@@ -179,7 +179,7 @@ public class ConexionBD {
             result1 = st.executeQuery();
             while (result1.next()) {
                 Prestamos nuevoPrestamo = new Prestamos(result1.getInt("codPrestamo"), codUsuario, result1.getString("titulo"), result1.getString("fechaInicio"), result1.getString("fechaFin"),
-                         result1.getInt("aumento"));
+                        result1.getInt("aumento"));
                 prestamosUsuario.add(nuevoPrestamo);
             }
         } catch (NullPointerException e) {
@@ -254,7 +254,7 @@ public class ConexionBD {
             result1 = st.executeQuery();
             while (result1.next()) {
                 Ejemplares nuevoEjemplar = new Ejemplares(result1.getInt("codEjemplar"), result1.getString("isbn"), result1.getString("editorial"), result1.getString("añoPublicacion"),
-                         result1.getString("comentarios"), result1.getBoolean("prestado"));
+                        result1.getString("comentarios"), result1.getBoolean("prestado"));
                 ejemplares.add(nuevoEjemplar);
             }
         } catch (NullPointerException e) {
@@ -294,7 +294,7 @@ public class ConexionBD {
     public static void borrarEjemplar(int codEjemplar) {
         ResultSet result = null;
         int codLibro = 0, numEjemplares = 0;
-        try {   
+        try {
             PreparedStatement st = connect.prepareStatement("select codLibro,numEjemplares from libros  where codLibro=(select codLibro from ejemplares where codEjemplar=" + codEjemplar + ")");
             result = st.executeQuery();
             if (result.next()) {
@@ -335,7 +335,6 @@ public class ConexionBD {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-         cerrarBD();
     }
 
     public static void eliminarSocio(String dni) {
@@ -364,7 +363,7 @@ public class ConexionBD {
         return dnis;
     }
 
-    public static void añadirPrestamo(int codUsuario,int codEjemplar,String diaPrestamo,String diaDevolucion) {
+    public static void añadirPrestamo(int codUsuario, int codEjemplar, String diaPrestamo, String diaDevolucion) {
 
         int codPrestamo = calcularCodigos("prestamos");
 
@@ -379,24 +378,24 @@ public class ConexionBD {
             st.setInt(7, 0);
             st.execute();
 
+            PreparedStatement st2 = connect.prepareStatement("UPDATE ejemplares SET prestado=" + 1 + " where codEjemplar=" + codEjemplar);
+            st2.executeUpdate();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-         cerrarBD();
     }
-    public static int recogerCodUsuario(String dni){
-        conectarBD();
-         ResultSet result = null;
-         int codUsuario = 0;
+
+    public static int recogerCodUsuario(String dni) {
+        ResultSet result = null;
+        int codUsuario = 0;
         try {
-            PreparedStatement  st = connect.prepareStatement("select codUsuario from usuarios where dni="+dni);
+            PreparedStatement st = connect.prepareStatement("select codUsuario from usuarios where dni='" + dni + "';");
             result = st.executeQuery();
             codUsuario = result.getInt("codUsuario");
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        cerrarBD();
         return codUsuario;
     }
 
@@ -405,13 +404,13 @@ public class ConexionBD {
         ArrayList<String> titulos = new ArrayList();
         ResultSet result = null;
         try {
-            PreparedStatement st = connect.prepareStatement("select codEjemplar,titulo from libros inner join ejemplares on libros.codLibro=ejemplares.codLibro where prestado=0");      
+            PreparedStatement st = connect.prepareStatement("select codEjemplar,titulo from libros inner join ejemplares on libros.codLibro=ejemplares.codLibro where prestado=0");
             result = st.executeQuery();
             while (result.next()) {
 
                 String titulo = result.getString("titulo");
                 int codigo = result.getInt("codEjemplar");
-                titulos.add(codigo+" - "+titulo);
+                titulos.add(codigo + " - " + titulo);
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -437,13 +436,96 @@ public class ConexionBD {
         return listadni;
     }
 
-    public static void devolverPrestamo() {
+    public static void devolverPrestamo(int codEjemplar, String dni) {
         try {
-            PreparedStatement st = connect.prepareStatement("");
-            //st.setString(1, );
+            PreparedStatement st = connect.prepareStatement("UPDATE prestamos SET prestado=" + 0 + " where codEjemplar=" + codEjemplar);
+            st.execute();
+            PreparedStatement st2 = connect.prepareStatement("select codUsuario from usuarios where dni='" + dni + "'");
             st.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+
+    public static void añadirLibro(String titulo, String autor, String seccion, String argumento, int numEjemplares, String editorial, String isbn, String año) {
+
+        int codLibro = calcularCodigos("libros");
+        boolean existe = false;
+        ResultSet result = null;
+        try {
+            PreparedStatement st = connect.prepareStatement("select autor from autores");
+            result = st.executeQuery();
+
+            while (result.next()) {
+                if (autor.equals(result.getString(1))) {
+                    existe = true;
+                }
+            }
+
+            PreparedStatement st2 = connect.prepareStatement("insert into libros (codLibro,titulo,codAutor, codSeccion,argumento,numEjemplares) values (?,?,?,?,?,?)");
+            st2.setInt(1, codLibro);
+            st2.setString(2, titulo);
+
+            if (existe == true) {
+                PreparedStatement st3 = connect.prepareStatement("select codAutor from autores where autor='" + autor + "'");
+                result = st3.executeQuery();
+                st2.setInt(3, result.getInt(1));
+            } else {
+                int codAutor = calcularCodigos("autor");
+                PreparedStatement st4 = connect.prepareStatement("insert into autores(codAutor,autor) values (?,?)");
+                st4.setInt(1, codAutor);
+                st4.setString(2, autor);
+                st4.execute();
+                st2.setInt(3, codAutor);
+            }
+            st2.setString(4, seccion);
+            st2.setString(5, argumento);
+            st2.setInt(6, numEjemplares);
+            st2.execute();
+            for (int i = 0; i < numEjemplares; i++) {
+                int codEjemplar = calcularCodigos("ejemplares");
+                 PreparedStatement st5 = connect.prepareStatement("insert into ejemplares (codEjemplar,codLibro,editorial, isbn,añoPublicacion,comentarios,prestado) values (?,?,?,?,?,?,?)");
+                st5.setInt(1, codEjemplar);
+                st5.setInt(2, codLibro);
+                st5.setString(3, editorial);
+                st5.setString(4, isbn);
+                st5.setString(5, año);
+                st5.setString(6, null);
+                st5.setBoolean(7, false);
+                st5.execute();
+            }
+            
+             
+             
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+
+    }
+    //   public static void prestamoQuique(String dni) {
+//
+//        try {
+//            Statement st = connect.createStatement();
+//            ResultSet rs = st.executeQuery("select codUsuario from usuarios where dni = '" + dni + "';");
+//            
+//            int codUsr = Integer.parseInt(rs.getString(1));
+//            
+//            rs.close();
+//            rs = st.executeQuery("select codEjemplar from prestamos where codUsuario = "+codUsr+" and devuelto = 0;");
+//            
+//            ArrayList<Integer> codEjemplar = new ArrayList<Integer>(); 
+//            while(rs.next()){
+//            codEjemplar.add(Integer.parseInt(rs.getString(1)));
+//            }
+//            rs.close();
+//            for (int i = 0; i < codEjemplar.size(); i++) {
+//                rs = st.executeQuery("select ")
+//            }
+//            
+//        } catch (SQLException ex) {
+//            System.out.println("Que pasa hulio " + ex);
+//        }
+//
+    //   }
 }

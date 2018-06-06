@@ -439,7 +439,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jAñadirLibroActionPerformed
 
     private void jBorrarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrarLibroActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jBorrarLibroActionPerformed
 
     /**

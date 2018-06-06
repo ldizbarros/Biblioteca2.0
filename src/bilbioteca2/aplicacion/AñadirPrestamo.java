@@ -221,6 +221,10 @@ public class AñadirPrestamo extends javax.swing.JFrame {
         System.out.println(codEjemplar);
         String dni = (String) jDnis.getSelectedItem();
         MetodosGUI.añadirP(codEjemplar,dni,jDiaPrestamo.getText(),jDiaDevolucion.getText());
+        
+        VentanaAdmin adm = new VentanaAdmin();
+        this.setVisible(false);
+        adm.setVisible(true);
 
     }//GEN-LAST:event_jOkActionPerformed
 
