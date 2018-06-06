@@ -314,6 +314,7 @@ public class ConexionBD {
     }
 
     public static void borrarEjemplar(int codEjemplar) {
+        cerrarBD();
         ResultSet result = null;
         int codLibro = 0, numEjemplares = 0;
         conectarBD();
