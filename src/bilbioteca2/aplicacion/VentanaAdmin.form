@@ -45,14 +45,18 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Component id="jAñadirUsuario" min="-2" pref="123" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="JEliminarUsuario" min="-2" pref="123" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Component id="jNuevoPrestamo" min="-2" pref="123" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="jDevolverPrestamo" min="-2" pref="123" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jBorrarLibro" min="-2" pref="123" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Component id="jAñadirLibro" min="-2" pref="123" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel_Cerrar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -81,11 +85,7 @@
                               <Component id="jScrollPane1" alignment="0" min="-2" pref="776" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jAñadirLibro" min="-2" pref="123" max="-2" attributes="0"/>
-                              <Component id="jB_verLibro" min="-2" pref="111" max="-2" attributes="0"/>
-                              <Component id="jBorrarLibro" min="-2" pref="123" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jB_verLibro" min="-2" pref="111" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
@@ -102,7 +102,7 @@
                           <Component id="jRB_Seccion" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace pref="28" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -118,6 +118,8 @@
                               <Component id="JEliminarUsuario" alignment="3" min="-2" pref="64" max="-2" attributes="0"/>
                               <Component id="jNuevoPrestamo" alignment="3" min="-2" pref="64" max="-2" attributes="0"/>
                               <Component id="jDevolverPrestamo" alignment="3" min="-2" pref="64" max="-2" attributes="0"/>
+                              <Component id="jBorrarLibro" alignment="3" min="-2" pref="64" max="-2" attributes="0"/>
+                              <Component id="jAñadirLibro" alignment="3" min="-2" pref="64" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -148,13 +150,9 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                                   <Component id="jB_verLibro" min="-2" pref="65" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jAñadirLibro" min="-2" pref="64" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jBorrarLibro" min="-2" pref="64" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="38" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="53" max="32767" attributes="0"/>
                           <Component id="jLabel_Cerrar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>

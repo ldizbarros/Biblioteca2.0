@@ -31,10 +31,13 @@ public class VentanaAdmin extends javax.swing.JFrame {
         jRB_Publicacion.setVisible(false);
         jRB_Seccion.setVisible(false);
         jRB_Titulo.setVisible(false);
+        jB_verLibro.setText("<html><p>Ficha</p><p>Libro</p></html>");
         jNuevoPrestamo.setText("<html><p>Nuevo</p><p>Prestamo</p></html>");
         JEliminarUsuario.setText("<html><p>Eliminar</p><p>Usuario</p></html>");
         jAñadirUsuario.setText("<html><p>Nuevo</p><p>Usuario</p></html>");
         jDevolverPrestamo.setText("<html><p>Devolver</p><p>Prestamo</p></html>");
+        jAñadirLibro.setText("<html><p>Nuevo</p><p>Libro</p></html>");
+        jBorrarLibro.setText("<html><p>Eliminar</p><p>Libro</p></html>");
     }
 
     /**
@@ -225,14 +228,18 @@ public class VentanaAdmin extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(116, 116, 116)
+                .addGap(25, 25, 25)
                 .addComponent(jAñadirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(28, 28, 28)
                 .addComponent(JEliminarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(27, 27, 27)
                 .addComponent(jNuevoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addGap(26, 26, 26)
                 .addComponent(jDevolverPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBorrarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jAñadirLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel_Cerrar)
                 .addContainerGap())
@@ -257,10 +264,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jAñadirLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jB_verLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBorrarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jB_verLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(jRB_Autor)
@@ -274,7 +278,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
                         .addComponent(jRB_Publicacion)
                         .addGap(39, 39, 39)
                         .addComponent(jRB_Seccion)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,7 +291,9 @@ public class VentanaAdmin extends javax.swing.JFrame {
                             .addComponent(jAñadirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(JEliminarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jNuevoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDevolverPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jDevolverPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBorrarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jAñadirLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel_Usuario)
                         .addGap(18, 18, 18)
@@ -312,12 +318,8 @@ public class VentanaAdmin extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(63, 63, 63)
-                                .addComponent(jB_verLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jAñadirLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jBorrarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 38, Short.MAX_VALUE)
+                                .addComponent(jB_verLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 53, Short.MAX_VALUE)
                         .addComponent(jLabel_Cerrar)))
                 .addContainerGap())
         );
