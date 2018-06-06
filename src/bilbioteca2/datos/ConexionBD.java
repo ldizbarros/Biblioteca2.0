@@ -26,6 +26,7 @@ public class ConexionBD {
     public static void cerrarBD() {
         try {
             connect.close();
+            System.out.println("cerrada");
         } catch (SQLException ex) {
             Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
         }
