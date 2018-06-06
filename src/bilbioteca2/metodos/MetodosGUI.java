@@ -224,4 +224,8 @@ public class MetodosGUI {
         String fechaD = formatter.format(calendar.getTime());
         return fechaD;
     }
+    
+    public static void añadirP(Prestamos prestamo){
+        
+    }
 }

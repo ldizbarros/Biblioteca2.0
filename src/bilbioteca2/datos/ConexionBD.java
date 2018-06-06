@@ -406,6 +406,7 @@ public class ConexionBD {
 
         try {
             PreparedStatement st = connect.prepareStatement("insert into prestamos (codPrestamo,codEjemplar,codUsuario, fechaInicio,fechaFin,devuelto,aumento) values (?,?,?,?,?,?,?)");
+            st = connect.prepareStatement("select codUsuario from usuarios where dni=?");
             st.setInt(1, codPrestamo);
             st.setString(2, prestamo.getLibro());
             st.setInt(1, prestamo.getCodUsuario());
@@ -427,14 +428,13 @@ public class ConexionBD {
         ArrayList<String> titulos = new ArrayList();
         ResultSet result = null;
         try {
-            //select titulo,codEjemplar from libros inner join ejemplares on libros.codLibro=ejemplares.codLibro where prestado='false'
-            //select titulo from libros where codLibro in(select codLibro from ejemplares where prestado='false')
-            PreparedStatement st = connect.prepareStatement("select codLibro from ejemplares where prestado='false'");
+            PreparedStatement st = connect.prepareStatement("select codEjemplar,titulo from libros inner join ejemplares on libros.codLibro=ejemplares.codLibro where prestado=0");      
             result = st.executeQuery();
             while (result.next()) {
 
                 String titulo = result.getString("titulo");
-                titulos.add(titulo);
+                int codigo = result.getInt("codEjemplar");
+                titulos.add(codigo+" - "+titulo);
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());

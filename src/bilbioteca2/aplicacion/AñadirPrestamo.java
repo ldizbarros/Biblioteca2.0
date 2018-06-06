@@ -6,6 +6,7 @@
 package bilbioteca2.aplicacion;
 
 import bilbioteca2.datos.ConexionBD;
+import bilbioteca2.datos.Prestamos;
 import bilbioteca2.metodos.MetodosGUI;
 import java.util.ArrayList;
 
@@ -214,7 +215,11 @@ public class AñadirPrestamo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOkActionPerformed
-        
+        String ejemplar = (String) jTitulos.getSelectedItem();
+        String [] codigo = ejemplar.split(" ");
+        int codEjemplar = Integer.parseInt(codigo[0]);
+        System.out.println(codEjemplar);
+        //Prestamos prestamo = new Prestamos(,jDnis.getSelectedItem(),);
 
     }//GEN-LAST:event_jOkActionPerformed
 
