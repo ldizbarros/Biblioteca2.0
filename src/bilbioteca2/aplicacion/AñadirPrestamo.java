@@ -219,7 +219,8 @@ public class AñadirPrestamo extends javax.swing.JFrame {
         String [] codigo = ejemplar.split(" ");
         int codEjemplar = Integer.parseInt(codigo[0]);
         System.out.println(codEjemplar);
-        //Prestamos prestamo = new Prestamos(,jDnis.getSelectedItem(),);
+        String dni = (String) jDnis.getSelectedItem();
+        MetodosGUI.añadirP(codEjemplar,dni,jDiaPrestamo.getText(),jDiaDevolucion.getText());
 
     }//GEN-LAST:event_jOkActionPerformed
 

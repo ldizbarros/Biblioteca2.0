@@ -367,8 +367,8 @@ public class ConexionBD {
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
-            cerrarBD();
         }
+         cerrarBD();
     }
 
     public static void eliminarSocio(String dni) {
@@ -401,27 +401,41 @@ public class ConexionBD {
         return dnis;
     }
 
-    public static void añadirPrestamo(Prestamos prestamo) {
+    public static void añadirPrestamo(int codUsuario,int codEjemplar,String diaPrestamo,String diaDevolucion) {
 
         int codPrestamo = calcularCodigos("prestamos");
         conectarBD();
 
         try {
             PreparedStatement st = connect.prepareStatement("insert into prestamos (codPrestamo,codEjemplar,codUsuario, fechaInicio,fechaFin,devuelto,aumento) values (?,?,?,?,?,?,?)");
-            st = connect.prepareStatement("select codUsuario from usuarios where dni=?");
             st.setInt(1, codPrestamo);
-            st.setString(2, prestamo.getLibro());
-            st.setInt(1, prestamo.getCodUsuario());
-            st.setString(4, prestamo.getFechaPrestamo());
-            st.setString(5, prestamo.getFechaDevolucion());
-            st.setBoolean(5, false);
-            st.setInt(6, prestamo.getAumento());
+            st.setInt(2, codEjemplar);
+            st.setInt(3, codUsuario);
+            st.setString(4, diaPrestamo);
+            st.setString(5, diaDevolucion);
+            st.setBoolean(6, false);
+            st.setInt(7, 0);
             st.execute();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
-            cerrarBD();
         }
+         cerrarBD();
+    }
+    public static int recogerCodUsuario(String dni){
+        conectarBD();
+         ResultSet result = null;
+         int codUsuario = 0;
+        try {
+            PreparedStatement  st = connect.prepareStatement("select codUsuario from usuarios where dni="+dni);
+            result = st.executeQuery();
+            codUsuario = result.getInt("codUsuario");
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        cerrarBD();
+        return codUsuario;
     }
 
     public static ArrayList<String> visualizarLibros() {

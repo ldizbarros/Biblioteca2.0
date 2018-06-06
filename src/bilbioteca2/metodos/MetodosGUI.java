@@ -227,7 +227,11 @@ public class MetodosGUI {
         return fechaD;
     }
     
-    public static void añadirP(Prestamos prestamo){
+    public static void añadirP(int codEjemplar,String dni, String diaPrestamo, String diaDevolucion){
+        
+       int codUsuario =ConexionBD.recogerCodUsuario(dni);
+       
+       ConexionBD.añadirPrestamo(codUsuario,codEjemplar,diaPrestamo,diaDevolucion);
         
     }
 }
