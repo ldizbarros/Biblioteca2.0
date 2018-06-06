@@ -380,20 +380,28 @@ public class VentanaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jB_prestamosActionPerformed
 
     private void jB_verLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_verLibroActionPerformed
-        String codLibro =  (String) jTable_MostrarLibros.getValueAt(jTable_MostrarLibros.getSelectedRow(), 0);
-        MetodosGUI.mostrarLibro(codLibro);
+        try{
+            String codLibro =  (String) jTable_MostrarLibros.getValueAt(jTable_MostrarLibros.getSelectedRow(), 0);
+            MetodosGUI.mostrarLibro(codLibro);
+        }catch(ArrayIndexOutOfBoundsException ex){
+            Biblioteca.mostrarMensaje("No ha seleccionado ningun libro.\nPor favor selecione uno para poder mostrar su ficha.");
+        }
     }//GEN-LAST:event_jB_verLibroActionPerformed
 
     private void jB_aumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_aumentoActionPerformed
-        String codPrestamo =  (String) jTable_Prestamos.getValueAt(jTable_Prestamos.getSelectedRow(), 0);
-        MetodosGUI.aumetarPrestamo(codPrestamo);
-        ArrayList prestamos = MetodosGUI.verPrestamos(Integer.parseInt(jLabel_codUsuario.getText()));
-        jTable_Prestamos.setModel(MetodosGUI.mostrarPrestamos(prestamos));
-        TableColumn columna =  jTable_Prestamos.getColumnModel().getColumn(0);
-        columna.setMaxWidth(0);
-        columna.setMinWidth(0);
-        columna.setPreferredWidth(0);
-        jTable_Prestamos.doLayout();   
+        try{
+            String codPrestamo =  (String) jTable_Prestamos.getValueAt(jTable_Prestamos.getSelectedRow(), 0);
+            MetodosGUI.aumetarPrestamo(codPrestamo);
+            ArrayList prestamos = MetodosGUI.verPrestamos(Integer.parseInt(jLabel_codUsuario.getText()));
+            jTable_Prestamos.setModel(MetodosGUI.mostrarPrestamos(prestamos));
+            TableColumn columna =  jTable_Prestamos.getColumnModel().getColumn(0);
+            columna.setMaxWidth(0);
+            columna.setMinWidth(0);
+            columna.setPreferredWidth(0);
+            jTable_Prestamos.doLayout();
+        }catch(ArrayIndexOutOfBoundsException ex){
+            Biblioteca.mostrarMensaje("No ha seleccionado ningun prestamo.\nPor favor selecione uno para poder aumentar el plazo de devolucion.");
+        }
     }//GEN-LAST:event_jB_aumentoActionPerformed
 
     /**
