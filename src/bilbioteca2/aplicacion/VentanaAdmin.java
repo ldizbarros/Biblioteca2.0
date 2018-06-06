@@ -67,6 +67,8 @@ public class VentanaAdmin extends javax.swing.JFrame {
         jTable_MostrarLibros = new javax.swing.JTable();
         jLabel_Cerrar = new javax.swing.JLabel();
         jB_verLibro = new javax.swing.JButton();
+        jAñadirLibro = new javax.swing.JButton();
+        jBorrarLibro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca Administrador");
@@ -198,6 +200,26 @@ public class VentanaAdmin extends javax.swing.JFrame {
             }
         });
 
+        jAñadirLibro.setBackground(java.awt.SystemColor.controlHighlight);
+        jAñadirLibro.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jAñadirLibro.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
+        jAñadirLibro.setText("AÑADIR LIBRO");
+        jAñadirLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAñadirLibroActionPerformed(evt);
+            }
+        });
+
+        jBorrarLibro.setBackground(java.awt.SystemColor.controlHighlight);
+        jBorrarLibro.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jBorrarLibro.setForeground(javax.swing.UIManager.getDefaults().getColor("CheckBoxMenuItem.acceleratorForeground"));
+        jBorrarLibro.setText("BORRAR LIBRO");
+        jBorrarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBorrarLibroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -234,8 +256,11 @@ public class VentanaAdmin extends javax.swing.JFrame {
                                 .addComponent(jL_mostarFiltros))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jB_verLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jAñadirLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jB_verLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBorrarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(jRB_Autor)
@@ -249,7 +274,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
                         .addComponent(jRB_Publicacion)
                         .addGap(39, 39, 39)
                         .addComponent(jRB_Seccion)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,9 +311,13 @@ public class VentanaAdmin extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(jB_verLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 53, Short.MAX_VALUE)
+                                .addGap(63, 63, 63)
+                                .addComponent(jB_verLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jAñadirLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBorrarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 38, Short.MAX_VALUE)
                         .addComponent(jLabel_Cerrar)))
                 .addContainerGap())
         );
@@ -321,11 +350,15 @@ public class VentanaAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_JEliminarUsuarioActionPerformed
 
     private void jNuevoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNuevoPrestamoActionPerformed
-        // TODO add your handling code here:
+       this.setVisible(false);
+        AñadirPrestamo prestamo = new AñadirPrestamo();
+        prestamo.setVisible(true);
     }//GEN-LAST:event_jNuevoPrestamoActionPerformed
 
     private void jDevolverPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDevolverPrestamoActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        DevolverPrestamo prestamo = new DevolverPrestamo();
+        prestamo.setVisible(true);
     }//GEN-LAST:event_jDevolverPrestamoActionPerformed
 
     private void jL_BuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jL_BuscarMouseClicked
@@ -399,6 +432,16 @@ public class VentanaAdmin extends javax.swing.JFrame {
         MetodosGUI.mostrarLibroAdmin(codLibro);
     }//GEN-LAST:event_jB_verLibroActionPerformed
 
+    private void jAñadirLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirLibroActionPerformed
+         this.setVisible(false);
+        AñadirLibro libro = new AñadirLibro();
+        libro.setVisible(true);
+    }//GEN-LAST:event_jAñadirLibroActionPerformed
+
+    private void jBorrarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrarLibroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBorrarLibroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -436,8 +479,10 @@ public class VentanaAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JEliminarUsuario;
+    private javax.swing.JButton jAñadirLibro;
     private javax.swing.JButton jAñadirUsuario;
     private javax.swing.JButton jB_verLibro;
+    private javax.swing.JButton jBorrarLibro;
     private javax.swing.JButton jDevolverPrestamo;
     private javax.swing.JLabel jL_Buscar;
     private javax.swing.JLabel jL_mostarFiltros;

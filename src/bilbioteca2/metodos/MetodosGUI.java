@@ -2,7 +2,10 @@ package bilbioteca2.metodos;
 
 import bilbioteca2.aplicacion.*;
 import bilbioteca2.datos.*;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -204,5 +207,21 @@ public class MetodosGUI {
         } else {
              ConexionBD.eliminarSocio(dni);
         }
+    }
+      public static String fechaPrestamo() {
+
+        Calendar calendar = Calendar.getInstance();
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaD = formatter.format(calendar.getTime());
+        return fechaD;
+    }
+
+    public static String entregarLibro() {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, 15);
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaD = formatter.format(calendar.getTime());
+        return fechaD;
     }
 }
