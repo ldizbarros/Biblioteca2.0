@@ -66,7 +66,7 @@ public class AñadirPrestamo extends javax.swing.JFrame {
 
         jLabel_Titulo.setFont(new java.awt.Font("Berlin Sans FB", 0, 36)); // NOI18N
         jLabel_Titulo.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_Titulo.setText("Añadir préstamo:");
+        jLabel_Titulo.setText("Añadir préstamo");
 
         jPanel2.setBackground(javax.swing.UIManager.getDefaults().getColor("activeCaption"));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -224,9 +224,7 @@ public class AñadirPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_jOkActionPerformed
 
     private void jLabel_CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_CerrarMouseClicked
-        VentanaAdmin adm = new VentanaAdmin();
         this.setVisible(false);
-        adm.setVisible(true);
     }//GEN-LAST:event_jLabel_CerrarMouseClicked
 
     /**

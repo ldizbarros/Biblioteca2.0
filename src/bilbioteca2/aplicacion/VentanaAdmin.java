@@ -339,26 +339,21 @@ public class VentanaAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jAñadirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirUsuarioActionPerformed
-        this.setVisible(false);
         AñadirUsuario socio = new AñadirUsuario();
         socio.setVisible(true);
-        
     }//GEN-LAST:event_jAñadirUsuarioActionPerformed
 
     private void JEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JEliminarUsuarioActionPerformed
-        this.setVisible(false);
         EliminarUsuario socio = new EliminarUsuario();
         socio.setVisible(true);
     }//GEN-LAST:event_JEliminarUsuarioActionPerformed
 
     private void jNuevoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNuevoPrestamoActionPerformed
-       this.setVisible(false);
         AñadirPrestamo prestamo = new AñadirPrestamo();
         prestamo.setVisible(true);
     }//GEN-LAST:event_jNuevoPrestamoActionPerformed
 
     private void jDevolverPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDevolverPrestamoActionPerformed
-        this.setVisible(false);
         DevolverPrestamo prestamo = new DevolverPrestamo();
         prestamo.setVisible(true);
     }//GEN-LAST:event_jDevolverPrestamoActionPerformed
@@ -430,12 +425,15 @@ public class VentanaAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel_CerrarMouseClicked
 
     private void jB_verLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_verLibroActionPerformed
-        String codLibro =  (String) jTable_MostrarLibros.getValueAt(jTable_MostrarLibros.getSelectedRow(), 0);
-        MetodosGUI.mostrarLibroAdmin(codLibro);
+        try{
+            String codLibro =  (String) jTable_MostrarLibros.getValueAt(jTable_MostrarLibros.getSelectedRow(), 0);
+            MetodosGUI.mostrarLibroAdmin(codLibro);
+        }catch(ArrayIndexOutOfBoundsException ex){
+            Biblioteca.mostrarMensaje("No ha seleccionado ningun libro.\nPor favor selecione uno para poder mostrar su ficha.");
+        }
     }//GEN-LAST:event_jB_verLibroActionPerformed
 
     private void jAñadirLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirLibroActionPerformed
-         this.setVisible(false);
         AñadirLibro libro = new AñadirLibro();
         libro.setVisible(true);
     }//GEN-LAST:event_jAñadirLibroActionPerformed

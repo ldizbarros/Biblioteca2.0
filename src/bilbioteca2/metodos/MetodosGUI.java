@@ -185,30 +185,39 @@ public class MetodosGUI {
         ConexionBD.aumentarPrestamo(codigo);
     }
 
-    public static void añadirS(String dni, String nombre, String apellidos, String telefono, String correo, String login, String password, boolean administrador) {
-
+    public static boolean añadirS(String dni, String nombre, String apellidos, String telefono, String correo, String login, String password, boolean administrador) {
+        boolean correcto;
         if (dni.equalsIgnoreCase("") || nombre.equalsIgnoreCase("") || apellidos.equalsIgnoreCase("") || telefono.equalsIgnoreCase("")
                 || correo.equalsIgnoreCase("") || login.equalsIgnoreCase("") || password.equalsIgnoreCase("")) {
             Biblioteca.mostrarMensaje("No han completado todos los campos.\nInténtelo de nuevo");
+            correcto=false;
         } else if (Usuario.validar(dni) == false) {
             Biblioteca.mostrarMensaje("DNI no válido");
+            correcto=false;
         } else if (telefono.length() != 9) {
             Biblioteca.mostrarMensaje("Número de teléfono no válido");
+            correcto=false;
         } else {
             Usuario us = new Usuario(dni, nombre, apellidos, telefono, correo, login, password, administrador);
-            ConexionBD.añadirSocio(us);
+            correcto=ConexionBD.añadirSocio(us);
         }
+        return correcto;
     }
 
-    public static void eliminarS(String dni) {
+    public static boolean eliminarS(String dni) {
+        boolean correcto;
         ArrayList dnis = ConexionBD.comprobarDni();
         if (dni.equalsIgnoreCase("")) {
             Biblioteca.mostrarMensaje("Debe intoducir un DNI\nInténtelo de nuevo");
+            correcto=false;
         }else if(!dnis.contains(dni)){ 
             Biblioteca.mostrarMensaje("El DNI introducido no coincide con el de ningún usuario\nInténtelo de nuevo");
+            correcto=false;
         } else {
-             ConexionBD.eliminarSocio(dni);
+            ConexionBD.eliminarSocio(dni);
+            correcto=true;
         }
+        return correcto;
     }
       public static String fechaPrestamo() {
 
